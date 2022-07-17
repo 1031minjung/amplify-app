@@ -1,11 +1,96 @@
 # this is an auto generated file. This will be overwritten
+subscription OnCreateDoctor {
+  onCreateDoctor {
+    id
+    name
+    Todos {
+      items {
+        id
+        name
+        description
+        doctorID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    licenseNum
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdateDoctor {
+  onUpdateDoctor {
+    id
+    name
+    Todos {
+      items {
+        id
+        name
+        description
+        doctorID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    licenseNum
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeleteDoctor {
+  onDeleteDoctor {
+    id
+    name
+    Todos {
+      items {
+        id
+        name
+        description
+        doctorID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    licenseNum
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
 subscription OnCreateTodo {
   onCreateTodo {
     id
     name
     description
+    doctorID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnUpdateTodo {
@@ -13,8 +98,12 @@ subscription OnUpdateTodo {
     id
     name
     description
+    doctorID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 subscription OnDeleteTodo {
@@ -22,7 +111,11 @@ subscription OnDeleteTodo {
     id
     name
     description
+    doctorID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }

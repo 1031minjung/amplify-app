@@ -39,7 +39,8 @@
     },
     "categories": {
       "auth": {
-        "amplifyapp582a1fba": {}
+        "amplifyapp582a1fba": {},
+        "amplifyapp": {}
       },
       "hosting": {
         "amplifyhosting": {

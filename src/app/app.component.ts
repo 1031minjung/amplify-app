@@ -29,12 +29,12 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     /* subscribe to new todos being created */
-  this.subscription = <Subscription>(
-    this.api.OnCreateTodoListener.subscribe((event: any) => {
-      const newTodo = event.value.data.onCreateTodo;
-      this.todos = [newTodo, ...this.todos];
-    })
-  );
+    this.subscription = <Subscription>(
+      this.api.OnCreateTodoListener.subscribe((event: any) => {
+        const newTodo = event.value.data.onCreateTodo;
+        this.todos = [newTodo, ...this.todos];
+      })
+    );
   }
 
   ngOnDestroy() {

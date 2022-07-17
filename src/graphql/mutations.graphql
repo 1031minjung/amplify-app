@@ -1,4 +1,94 @@
 # this is an auto generated file. This will be overwritten
+mutation CreateDoctor(
+  $input: CreateDoctorInput!
+  $condition: ModelDoctorConditionInput
+) {
+  createDoctor(input: $input, condition: $condition) {
+    id
+    name
+    Todos {
+      items {
+        id
+        name
+        description
+        doctorID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    licenseNum
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdateDoctor(
+  $input: UpdateDoctorInput!
+  $condition: ModelDoctorConditionInput
+) {
+  updateDoctor(input: $input, condition: $condition) {
+    id
+    name
+    Todos {
+      items {
+        id
+        name
+        description
+        doctorID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    licenseNum
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeleteDoctor(
+  $input: DeleteDoctorInput!
+  $condition: ModelDoctorConditionInput
+) {
+  deleteDoctor(input: $input, condition: $condition) {
+    id
+    name
+    Todos {
+      items {
+        id
+        name
+        description
+        doctorID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    licenseNum
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
 mutation CreateTodo(
   $input: CreateTodoInput!
   $condition: ModelTodoConditionInput
@@ -7,8 +97,12 @@ mutation CreateTodo(
     id
     name
     description
+    doctorID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation UpdateTodo(
@@ -19,8 +113,12 @@ mutation UpdateTodo(
     id
     name
     description
+    doctorID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }
 mutation DeleteTodo(
@@ -31,7 +129,11 @@ mutation DeleteTodo(
     id
     name
     description
+    doctorID
     createdAt
     updatedAt
+    _version
+    _deleted
+    _lastChangedAt
   }
 }

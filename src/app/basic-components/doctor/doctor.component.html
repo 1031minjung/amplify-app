@@ -1,0 +1,17 @@
+<div>Hey Dr.</div>
+<div class="form-body">
+    <form autocomplete="off" [formGroup]="createForm" (ngSubmit)="onCreate(createForm.value)">
+        <div>
+          <label>Name: </label>
+          <input type="text" formControlName="name" autocomplete="off" />
+        </div>
+        <div>
+          <label>License Number: </label>
+          <input type="text" formControlName="licenseNum" autocomplete="off" />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+      <div *ngFor="let doctor of doctors">
+          <div>{{doctor.name}} - {{doctor.licenseNum}} </div>
+      </div>
+</div>
