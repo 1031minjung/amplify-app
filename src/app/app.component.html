@@ -4,35 +4,22 @@
     let-user="user"
     let-signOut="signOut"
   >
+    <ul>
+      <li>
+        <a (click)="goToDoctor()">Doctor</a>
+      </li>
+      <li>
+        <a (click)="goToInventory()">Inventory</a>
+      </li>
+      <li>
+        <a (click)="goToAboutUs()">About Us</a>
+      </li>
+    </ul>
     <h1>Welcome {{ user.username }}!</h1>
-    <app-doctor></app-doctor>
-    <!-- <div class="form-body">
-      <form autocomplete="off" [formGroup]="createForm" (ngSubmit)="onCreate(createForm.value)">
-        <div>
-          <label>Name: </label>
-          <input type="text" formControlName="name" autocomplete="off" />
-        </div>
-        <div>
-          <label>description: </label>
-          <input type="text" formControlName="description" autocomplete="off" />
-        </div>
-        <div>
-          <label>Dr ID: </label>
-          <input type="text" formControlName="doctorId" autocomplete="off" />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-      
-    </div>
-    <button (click)="onDelete">delete</button>
-    <div *ngFor="let todo of todos">
-      <div>{{ todo.name }} - {{ todo.description }} - {{ todo.doctorID }}</div>
-    </div> -->
+    this is the Home page
     <button (click)="signOut()">Sign Out</button>
   </ng-template>
 </amplify-authenticator>
 <div>
-
-
 
 <router-outlet></router-outlet>

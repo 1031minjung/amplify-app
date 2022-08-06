@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { APIService } from './API.service';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,7 +15,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // public todos: Array<Todo> = [];
 
-  constructor(private api: APIService, private fb: FormBuilder) {
+  constructor(private api: APIService, private fb: FormBuilder, private router: Router) {
     this.createForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required]
@@ -23,18 +25,6 @@ export class AppComponent implements OnInit, OnDestroy {
   private subscription: Subscription | null = null;
 
   async ngOnInit() {
-    /* fetch todos when app loads */
-    // this.api.ListTodos().then((event) => {
-    //   this.todos = event.items as Todo[];
-    // });
-
-    // /* subscribe to new todos being created */
-    // this.subscription = <Subscription>(
-    //   this.api.OnCreateTodoListener.subscribe((event: any) => {
-    //     const newTodo = event.value.data.onCreateTodo;
-    //     this.todos = [newTodo, ...this.todos];
-    //   })
-    // );
   }
 
   ngOnDestroy() {
@@ -44,22 +34,14 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription = null;
   }
 
+  goToDoctor() {
+    this.router.navigate(['/', 'doctors']);
+  }
 
-  // public onCreate(todo: Todo) {
-  //   console.log("onCreate")
-  //   console.log(todo)
-  //   this.api
-  //     .CreateTodo(todo)
-  //     .then((event) => {
-  //       console.log('item created!');
-  //       this.createForm.reset();
-  //     })
-  //     .catch((e) => {
-  //       console.log('error creating todo...', e);
-  //     });
-  // }
-
-  // public onDelete () {
-  //   console.log("delete is clicked")
-  // }
+  goToInventory() {
+    this.router.navigate(['/', 'inventory']);
+  }
+  goToAboutUs() {
+    this.router.navigate(['/', 'about-us']);
+  }
 }
