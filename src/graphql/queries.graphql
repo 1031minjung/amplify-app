@@ -1,13 +1,13 @@
 # this is an auto generated file. This will be overwritten
-query GetDoctor($id: ID!) {
-  getDoctor(id: $id) {
+query GetPatient($id: ID!) {
+  getPatient(id: $id) {
     id
     name
-    Todos {
+    age
+    doctors {
       items {
         id
-        name
-        description
+        patientID
         doctorID
         createdAt
         updatedAt
@@ -18,7 +18,86 @@ query GetDoctor($id: ID!) {
       nextToken
       startedAt
     }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+query ListPatients(
+  $filter: ModelPatientFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPatients(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      age
+      doctors {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query SyncPatients(
+  $filter: ModelPatientFilterInput
+  $limit: Int
+  $nextToken: String
+  $lastSync: AWSTimestamp
+) {
+  syncPatients(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    lastSync: $lastSync
+  ) {
+    items {
+      id
+      name
+      age
+      doctors {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    nextToken
+    startedAt
+  }
+}
+query GetDoctor($id: ID!) {
+  getDoctor(id: $id) {
+    id
+    name
     licenseNum
+    Patients {
+      items {
+        id
+        patientID
+        doctorID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
     createdAt
     updatedAt
     _version
@@ -35,11 +114,11 @@ query ListDoctors(
     items {
       id
       name
-      Todos {
+      licenseNum
+      Patients {
         nextToken
         startedAt
       }
-      licenseNum
       createdAt
       updatedAt
       _version
@@ -65,11 +144,11 @@ query SyncDoctors(
     items {
       id
       name
-      Todos {
+      licenseNum
+      Patients {
         nextToken
         startedAt
       }
-      licenseNum
       createdAt
       updatedAt
       _version
@@ -80,12 +159,39 @@ query SyncDoctors(
     startedAt
   }
 }
-query GetTodo($id: ID!) {
-  getTodo(id: $id) {
+query GetDoctorsPatients($id: ID!) {
+  getDoctorsPatients(id: $id) {
     id
-    name
-    description
+    patientID
     doctorID
+    patient {
+      id
+      name
+      age
+      doctors {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    doctor {
+      id
+      name
+      licenseNum
+      Patients {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
     createdAt
     updatedAt
     _version
@@ -93,17 +199,36 @@ query GetTodo($id: ID!) {
     _lastChangedAt
   }
 }
-query ListTodos(
-  $filter: ModelTodoFilterInput
+query ListDoctorsPatients(
+  $filter: ModelDoctorsPatientsFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listDoctorsPatients(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      name
-      description
+      patientID
       doctorID
+      patient {
+        id
+        name
+        age
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      doctor {
+        id
+        name
+        licenseNum
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdAt
       updatedAt
       _version
@@ -114,13 +239,13 @@ query ListTodos(
     startedAt
   }
 }
-query SyncTodos(
-  $filter: ModelTodoFilterInput
+query SyncDoctorsPatients(
+  $filter: ModelDoctorsPatientsFilterInput
   $limit: Int
   $nextToken: String
   $lastSync: AWSTimestamp
 ) {
-  syncTodos(
+  syncDoctorsPatients(
     filter: $filter
     limit: $limit
     nextToken: $nextToken
@@ -128,9 +253,28 @@ query SyncTodos(
   ) {
     items {
       id
-      name
-      description
+      patientID
       doctorID
+      patient {
+        id
+        name
+        age
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      doctor {
+        id
+        name
+        licenseNum
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
       createdAt
       updatedAt
       _version

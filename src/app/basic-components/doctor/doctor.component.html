@@ -2,16 +2,30 @@
 <div class="form-body">
     <form autocomplete="off" [formGroup]="createForm" (ngSubmit)="onCreate(createForm.value)">
         <div>
-          <label>Name: </label>
-          <input type="text" formControlName="name" autocomplete="off" />
+            <label>Name: </label>
+            <input type="text" formControlName="name" autocomplete="off" />
         </div>
         <div>
-          <label>License Number: </label>
-          <input type="text" formControlName="licenseNum" autocomplete="off" />
+            <label>License Number: </label>
+            <input type="text" formControlName="licenseNum" autocomplete="off" />
         </div>
         <button type="submit">Submit</button>
-      </form>
-      <div *ngFor="let doctor of doctors">
-          <div>{{doctor.name}} - {{doctor.licenseNum}} </div>
-      </div>
+    </form>
+    <div *ngFor="let doctor of doctors">
+        <div>{{ doctor.id }} - {{doctor.name}} -
+            {{doctor.licenseNum}} </div>
+    </div>
+    <div>
+        <form [formGroup]="doctorGroupForm">
+            <select formControlName="doctors" (change)="onSelectChange($event)">
+                <option *ngFor="let doctor of doctors" [value]="doctor.id">
+                    {{doctor.name}} -
+                    {{doctor.licenseNum}}
+                </option>
+            </select>
+            <button (click)="onClearDoctorClick()">Clear Doctor</button>
+            <app-patient *ngIf=selectedDoctorID [doctorId]="selectedDoctorID"></app-patient>
+        </form>
+    </div>
+
 </div>

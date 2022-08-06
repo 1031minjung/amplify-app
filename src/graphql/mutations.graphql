@@ -1,16 +1,16 @@
 # this is an auto generated file. This will be overwritten
-mutation CreateDoctor(
-  $input: CreateDoctorInput!
-  $condition: ModelDoctorConditionInput
+mutation CreatePatient(
+  $input: CreatePatientInput!
+  $condition: ModelPatientConditionInput
 ) {
-  createDoctor(input: $input, condition: $condition) {
+  createPatient(input: $input, condition: $condition) {
     id
     name
-    Todos {
+    age
+    doctors {
       items {
         id
-        name
-        description
+        patientID
         doctorID
         createdAt
         updatedAt
@@ -21,7 +21,93 @@ mutation CreateDoctor(
       nextToken
       startedAt
     }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation UpdatePatient(
+  $input: UpdatePatientInput!
+  $condition: ModelPatientConditionInput
+) {
+  updatePatient(input: $input, condition: $condition) {
+    id
+    name
+    age
+    doctors {
+      items {
+        id
+        patientID
+        doctorID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation DeletePatient(
+  $input: DeletePatientInput!
+  $condition: ModelPatientConditionInput
+) {
+  deletePatient(input: $input, condition: $condition) {
+    id
+    name
+    age
+    doctors {
+      items {
+        id
+        patientID
+        doctorID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+mutation CreateDoctor(
+  $input: CreateDoctorInput!
+  $condition: ModelDoctorConditionInput
+) {
+  createDoctor(input: $input, condition: $condition) {
+    id
+    name
     licenseNum
+    Patients {
+      items {
+        id
+        patientID
+        doctorID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
     createdAt
     updatedAt
     _version
@@ -36,11 +122,11 @@ mutation UpdateDoctor(
   updateDoctor(input: $input, condition: $condition) {
     id
     name
-    Todos {
+    licenseNum
+    Patients {
       items {
         id
-        name
-        description
+        patientID
         doctorID
         createdAt
         updatedAt
@@ -51,7 +137,6 @@ mutation UpdateDoctor(
       nextToken
       startedAt
     }
-    licenseNum
     createdAt
     updatedAt
     _version
@@ -66,11 +151,11 @@ mutation DeleteDoctor(
   deleteDoctor(input: $input, condition: $condition) {
     id
     name
-    Todos {
+    licenseNum
+    Patients {
       items {
         id
-        name
-        description
+        patientID
         doctorID
         createdAt
         updatedAt
@@ -81,7 +166,6 @@ mutation DeleteDoctor(
       nextToken
       startedAt
     }
-    licenseNum
     createdAt
     updatedAt
     _version
@@ -89,15 +173,42 @@ mutation DeleteDoctor(
     _lastChangedAt
   }
 }
-mutation CreateTodo(
-  $input: CreateTodoInput!
-  $condition: ModelTodoConditionInput
+mutation CreateDoctorsPatients(
+  $input: CreateDoctorsPatientsInput!
+  $condition: ModelDoctorsPatientsConditionInput
 ) {
-  createTodo(input: $input, condition: $condition) {
+  createDoctorsPatients(input: $input, condition: $condition) {
     id
-    name
-    description
+    patientID
     doctorID
+    patient {
+      id
+      name
+      age
+      doctors {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    doctor {
+      id
+      name
+      licenseNum
+      Patients {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
     createdAt
     updatedAt
     _version
@@ -105,15 +216,42 @@ mutation CreateTodo(
     _lastChangedAt
   }
 }
-mutation UpdateTodo(
-  $input: UpdateTodoInput!
-  $condition: ModelTodoConditionInput
+mutation UpdateDoctorsPatients(
+  $input: UpdateDoctorsPatientsInput!
+  $condition: ModelDoctorsPatientsConditionInput
 ) {
-  updateTodo(input: $input, condition: $condition) {
+  updateDoctorsPatients(input: $input, condition: $condition) {
     id
-    name
-    description
+    patientID
     doctorID
+    patient {
+      id
+      name
+      age
+      doctors {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    doctor {
+      id
+      name
+      licenseNum
+      Patients {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
     createdAt
     updatedAt
     _version
@@ -121,15 +259,42 @@ mutation UpdateTodo(
     _lastChangedAt
   }
 }
-mutation DeleteTodo(
-  $input: DeleteTodoInput!
-  $condition: ModelTodoConditionInput
+mutation DeleteDoctorsPatients(
+  $input: DeleteDoctorsPatientsInput!
+  $condition: ModelDoctorsPatientsConditionInput
 ) {
-  deleteTodo(input: $input, condition: $condition) {
+  deleteDoctorsPatients(input: $input, condition: $condition) {
     id
-    name
-    description
+    patientID
     doctorID
+    patient {
+      id
+      name
+      age
+      doctors {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    doctor {
+      id
+      name
+      licenseNum
+      Patients {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
     createdAt
     updatedAt
     _version

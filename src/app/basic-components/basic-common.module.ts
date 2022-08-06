@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { DoctorComponent} from './doctor/doctor.component'
+import { DoctorComponent} from './doctor/doctor.component';
+import { PatientComponent } from './patient/patient.component'
 
 @NgModule({
     imports: [
@@ -10,7 +11,8 @@ import { DoctorComponent} from './doctor/doctor.component'
         BrowserModule
     ],
     declarations: [
-        DoctorComponent
+        DoctorComponent,
+        PatientComponent
     ],
     exports: [
         DoctorComponent

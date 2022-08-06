@@ -1,5 +1,85 @@
 export const schema = {
     "models": {
+        "Patient": {
+            "name": "Patient",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "name": {
+                    "name": "name",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "age": {
+                    "name": "age",
+                    "isArray": false,
+                    "type": "Int",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "doctors": {
+                    "name": "doctors",
+                    "isArray": true,
+                    "type": {
+                        "model": "DoctorsPatients"
+                    },
+                    "isRequired": false,
+                    "attributes": [],
+                    "isArrayNullable": true,
+                    "association": {
+                        "connectionType": "HAS_MANY",
+                        "associatedWith": "patient"
+                    }
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "Patients",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "Doctor": {
             "name": "Doctor",
             "fields": {
@@ -17,26 +97,26 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "Todos": {
-                    "name": "Todos",
+                "licenseNum": {
+                    "name": "licenseNum",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "Patients": {
+                    "name": "Patients",
                     "isArray": true,
                     "type": {
-                        "model": "Todo"
+                        "model": "DoctorsPatients"
                     },
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true,
                     "association": {
                         "connectionType": "HAS_MANY",
-                        "associatedWith": "doctorID"
+                        "associatedWith": "doctor"
                     }
-                },
-                "licenseNum": {
-                    "name": "licenseNum",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -80,8 +160,8 @@ export const schema = {
                 }
             ]
         },
-        "Todo": {
-            "name": "Todo",
+        "DoctorsPatients": {
+            "name": "DoctorsPatients",
             "fields": {
                 "id": {
                     "name": "id",
@@ -90,26 +170,31 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "name": {
-                    "name": "name",
+                "patient": {
+                    "name": "patient",
                     "isArray": false,
-                    "type": "String",
+                    "type": {
+                        "model": "Patient"
+                    },
                     "isRequired": true,
-                    "attributes": []
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "patientID"
+                    }
                 },
-                "description": {
-                    "name": "description",
+                "doctor": {
+                    "name": "doctor",
                     "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "doctorID": {
-                    "name": "doctorID",
-                    "isArray": false,
-                    "type": "ID",
+                    "type": {
+                        "model": "Doctor"
+                    },
                     "isRequired": true,
-                    "attributes": []
+                    "attributes": [],
+                    "association": {
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "doctorID"
+                    }
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -129,11 +214,20 @@ export const schema = {
                 }
             },
             "syncable": true,
-            "pluralName": "Todos",
+            "pluralName": "DoctorsPatients",
             "attributes": [
                 {
                     "type": "model",
                     "properties": {}
+                },
+                {
+                    "type": "key",
+                    "properties": {
+                        "name": "byPatient",
+                        "fields": [
+                            "patientID"
+                        ]
+                    }
                 },
                 {
                     "type": "key",
@@ -143,27 +237,11 @@ export const schema = {
                             "doctorID"
                         ]
                     }
-                },
-                {
-                    "type": "auth",
-                    "properties": {
-                        "rules": [
-                            {
-                                "allow": "public",
-                                "operations": [
-                                    "create",
-                                    "update",
-                                    "delete",
-                                    "read"
-                                ]
-                            }
-                        ]
-                    }
                 }
             ]
         }
     },
     "enums": {},
     "nonModels": {},
-    "version": "eac9e0e93fb06b73292de1dfdfa93d48"
+    "version": "65d6bb91e52334b5b5e8663edf119fb1"
 };

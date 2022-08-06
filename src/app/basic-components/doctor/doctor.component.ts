@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { APIService, Doctor } from '../../API.service';
 import { Subscription } from 'rxjs';
 
@@ -10,22 +10,28 @@ import { Subscription } from 'rxjs';
 })
 export class DoctorComponent implements OnInit {
   public createForm: FormGroup;
+  public doctorGroupForm: FormGroup;
   public doctors: Array<Doctor> = [];
+  public selectedDoctorID: any;
+  private subscription: Subscription | null = null;
+  contact_form: any;
 
   constructor(private api: APIService, private fb: FormBuilder) {
     this.createForm = this.fb.group({
       name: ['', Validators.required],
       licenseNum: ['', Validators.required]
     });
+    this.doctorGroupForm = this.fb.group({
+      doctors: ['']
+    })
   }
-  private subscription: Subscription | null = null;
+  
 
   ngOnInit(): void {
     this.api.ListDoctors().then((event) => {
       this.doctors = event.items as Doctor[];
     });
 
-    /* subscribe to new todos being created */
     this.subscription = <Subscription>(
       this.api.OnCreateDoctorListener.subscribe((event: any) => {
         const newDoctor = event.value.data.onCreateDoctor;
@@ -35,8 +41,6 @@ export class DoctorComponent implements OnInit {
   }
 
   public onCreate(doctor: Doctor) {
-    console.log("onCreate")
-    console.log(doctor)
     this.api
       .CreateDoctor(doctor)
       .then((event) => {
@@ -46,6 +50,21 @@ export class DoctorComponent implements OnInit {
       .catch((e) => {
         console.log('error creating doctor...', e);
       });
+  }
+
+  public onSelectChange(doctor: any) {
+    this.api.GetDoctor(doctor.target.value) // passing doctorID
+    .then((event) => {
+      this.selectedDoctorID = doctor.target.value;
+    })
+    .catch((e) => {
+      console.log('error on getting Dr.\'s ID...', e);
+    })
+  }
+
+  public onClearDoctorClick () {
+    this.doctorGroupForm.reset();
+    this.selectedDoctorID = null;
   }
 
 }

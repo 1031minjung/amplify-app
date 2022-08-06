@@ -10,27 +10,30 @@ export interface SubscriptionResponse<T> {
 }
 
 export type __SubscriptionContainer = {
+  onCreatePatient: OnCreatePatientSubscription;
+  onUpdatePatient: OnUpdatePatientSubscription;
+  onDeletePatient: OnDeletePatientSubscription;
   onCreateDoctor: OnCreateDoctorSubscription;
   onUpdateDoctor: OnUpdateDoctorSubscription;
   onDeleteDoctor: OnDeleteDoctorSubscription;
-  onCreateTodo: OnCreateTodoSubscription;
-  onUpdateTodo: OnUpdateTodoSubscription;
-  onDeleteTodo: OnDeleteTodoSubscription;
+  onCreateDoctorsPatients: OnCreateDoctorsPatientsSubscription;
+  onUpdateDoctorsPatients: OnUpdateDoctorsPatientsSubscription;
+  onDeleteDoctorsPatients: OnDeleteDoctorsPatientsSubscription;
 };
 
-export type CreateDoctorInput = {
+export type CreatePatientInput = {
   id?: string | null;
   name?: string | null;
-  licenseNum?: string | null;
+  age?: number | null;
   _version?: number | null;
 };
 
-export type ModelDoctorConditionInput = {
+export type ModelPatientConditionInput = {
   name?: ModelStringInput | null;
-  licenseNum?: ModelStringInput | null;
-  and?: Array<ModelDoctorConditionInput | null> | null;
-  or?: Array<ModelDoctorConditionInput | null> | null;
-  not?: ModelDoctorConditionInput | null;
+  age?: ModelIntInput | null;
+  and?: Array<ModelPatientConditionInput | null> | null;
+  or?: Array<ModelPatientConditionInput | null> | null;
+  not?: ModelPatientConditionInput | null;
 };
 
 export type ModelStringInput = {
@@ -72,12 +75,24 @@ export type ModelSizeInput = {
   between?: Array<number | null> | null;
 };
 
-export type Doctor = {
-  __typename: "Doctor";
+export type ModelIntInput = {
+  ne?: number | null;
+  eq?: number | null;
+  le?: number | null;
+  lt?: number | null;
+  ge?: number | null;
+  gt?: number | null;
+  between?: Array<number | null> | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
+};
+
+export type Patient = {
+  __typename: "Patient";
   id: string;
   name?: string | null;
-  Todos?: ModelTodoConnection | null;
-  licenseNum?: string | null;
+  age?: number | null;
+  doctors?: ModelDoctorsPatientsConnection | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -85,24 +100,65 @@ export type Doctor = {
   _lastChangedAt: number;
 };
 
-export type ModelTodoConnection = {
-  __typename: "ModelTodoConnection";
-  items: Array<Todo | null>;
+export type ModelDoctorsPatientsConnection = {
+  __typename: "ModelDoctorsPatientsConnection";
+  items: Array<DoctorsPatients | null>;
   nextToken?: string | null;
   startedAt?: number | null;
 };
 
-export type Todo = {
-  __typename: "Todo";
+export type DoctorsPatients = {
+  __typename: "DoctorsPatients";
   id: string;
-  name: string;
-  description?: string | null;
+  patientID: string;
   doctorID: string;
+  patient: Patient;
+  doctor: Doctor;
   createdAt: string;
   updatedAt: string;
   _version: number;
   _deleted?: boolean | null;
   _lastChangedAt: number;
+};
+
+export type Doctor = {
+  __typename: "Doctor";
+  id: string;
+  name?: string | null;
+  licenseNum: string;
+  Patients?: ModelDoctorsPatientsConnection | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type UpdatePatientInput = {
+  id: string;
+  name?: string | null;
+  age?: number | null;
+  _version?: number | null;
+};
+
+export type DeletePatientInput = {
+  id: string;
+  _version?: number | null;
+};
+
+export type CreateDoctorInput = {
+  id?: string | null;
+  name?: string | null;
+  licenseNum: string;
+  _version?: number | null;
+};
+
+export type ModelDoctorConditionInput = {
+  name?: ModelStringInput | null;
+  licenseNum?: ModelStringInput | null;
+  and?: Array<ModelDoctorConditionInput | null> | null;
+  or?: Array<ModelDoctorConditionInput | null> | null;
+  not?: ModelDoctorConditionInput | null;
 };
 
 export type UpdateDoctorInput = {
@@ -117,21 +173,19 @@ export type DeleteDoctorInput = {
   _version?: number | null;
 };
 
-export type CreateTodoInput = {
+export type CreateDoctorsPatientsInput = {
   id?: string | null;
-  name: string;
-  description?: string | null;
+  patientID: string;
   doctorID: string;
   _version?: number | null;
 };
 
-export type ModelTodoConditionInput = {
-  name?: ModelStringInput | null;
-  description?: ModelStringInput | null;
+export type ModelDoctorsPatientsConditionInput = {
+  patientID?: ModelIDInput | null;
   doctorID?: ModelIDInput | null;
-  and?: Array<ModelTodoConditionInput | null> | null;
-  or?: Array<ModelTodoConditionInput | null> | null;
-  not?: ModelTodoConditionInput | null;
+  and?: Array<ModelDoctorsPatientsConditionInput | null> | null;
+  or?: Array<ModelDoctorsPatientsConditionInput | null> | null;
+  not?: ModelDoctorsPatientsConditionInput | null;
 };
 
 export type ModelIDInput = {
@@ -150,17 +204,32 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null;
 };
 
-export type UpdateTodoInput = {
+export type UpdateDoctorsPatientsInput = {
   id: string;
-  name?: string | null;
-  description?: string | null;
+  patientID?: string | null;
   doctorID?: string | null;
   _version?: number | null;
 };
 
-export type DeleteTodoInput = {
+export type DeleteDoctorsPatientsInput = {
   id: string;
   _version?: number | null;
+};
+
+export type ModelPatientFilterInput = {
+  id?: ModelIDInput | null;
+  name?: ModelStringInput | null;
+  age?: ModelIntInput | null;
+  and?: Array<ModelPatientFilterInput | null> | null;
+  or?: Array<ModelPatientFilterInput | null> | null;
+  not?: ModelPatientFilterInput | null;
+};
+
+export type ModelPatientConnection = {
+  __typename: "ModelPatientConnection";
+  items: Array<Patient | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
 };
 
 export type ModelDoctorFilterInput = {
@@ -179,27 +248,26 @@ export type ModelDoctorConnection = {
   startedAt?: number | null;
 };
 
-export type ModelTodoFilterInput = {
+export type ModelDoctorsPatientsFilterInput = {
   id?: ModelIDInput | null;
-  name?: ModelStringInput | null;
-  description?: ModelStringInput | null;
+  patientID?: ModelIDInput | null;
   doctorID?: ModelIDInput | null;
-  and?: Array<ModelTodoFilterInput | null> | null;
-  or?: Array<ModelTodoFilterInput | null> | null;
-  not?: ModelTodoFilterInput | null;
+  and?: Array<ModelDoctorsPatientsFilterInput | null> | null;
+  or?: Array<ModelDoctorsPatientsFilterInput | null> | null;
+  not?: ModelDoctorsPatientsFilterInput | null;
 };
 
-export type CreateDoctorMutation = {
-  __typename: "Doctor";
+export type CreatePatientMutation = {
+  __typename: "Patient";
   id: string;
   name?: string | null;
-  Todos?: {
-    __typename: "ModelTodoConnection";
+  age?: number | null;
+  doctors?: {
+    __typename: "ModelDoctorsPatientsConnection";
     items: Array<{
-      __typename: "Todo";
+      __typename: "DoctorsPatients";
       id: string;
-      name: string;
-      description?: string | null;
+      patientID: string;
       doctorID: string;
       createdAt: string;
       updatedAt: string;
@@ -210,7 +278,90 @@ export type CreateDoctorMutation = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
-  licenseNum?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type UpdatePatientMutation = {
+  __typename: "Patient";
+  id: string;
+  name?: string | null;
+  age?: number | null;
+  doctors?: {
+    __typename: "ModelDoctorsPatientsConnection";
+    items: Array<{
+      __typename: "DoctorsPatients";
+      id: string;
+      patientID: string;
+      doctorID: string;
+      createdAt: string;
+      updatedAt: string;
+      _version: number;
+      _deleted?: boolean | null;
+      _lastChangedAt: number;
+    } | null>;
+    nextToken?: string | null;
+    startedAt?: number | null;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type DeletePatientMutation = {
+  __typename: "Patient";
+  id: string;
+  name?: string | null;
+  age?: number | null;
+  doctors?: {
+    __typename: "ModelDoctorsPatientsConnection";
+    items: Array<{
+      __typename: "DoctorsPatients";
+      id: string;
+      patientID: string;
+      doctorID: string;
+      createdAt: string;
+      updatedAt: string;
+      _version: number;
+      _deleted?: boolean | null;
+      _lastChangedAt: number;
+    } | null>;
+    nextToken?: string | null;
+    startedAt?: number | null;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type CreateDoctorMutation = {
+  __typename: "Doctor";
+  id: string;
+  name?: string | null;
+  licenseNum: string;
+  Patients?: {
+    __typename: "ModelDoctorsPatientsConnection";
+    items: Array<{
+      __typename: "DoctorsPatients";
+      id: string;
+      patientID: string;
+      doctorID: string;
+      createdAt: string;
+      updatedAt: string;
+      _version: number;
+      _deleted?: boolean | null;
+      _lastChangedAt: number;
+    } | null>;
+    nextToken?: string | null;
+    startedAt?: number | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -222,13 +373,13 @@ export type UpdateDoctorMutation = {
   __typename: "Doctor";
   id: string;
   name?: string | null;
-  Todos?: {
-    __typename: "ModelTodoConnection";
+  licenseNum: string;
+  Patients?: {
+    __typename: "ModelDoctorsPatientsConnection";
     items: Array<{
-      __typename: "Todo";
+      __typename: "DoctorsPatients";
       id: string;
-      name: string;
-      description?: string | null;
+      patientID: string;
       doctorID: string;
       createdAt: string;
       updatedAt: string;
@@ -239,7 +390,6 @@ export type UpdateDoctorMutation = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
-  licenseNum?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -251,13 +401,13 @@ export type DeleteDoctorMutation = {
   __typename: "Doctor";
   id: string;
   name?: string | null;
-  Todos?: {
-    __typename: "ModelTodoConnection";
+  licenseNum: string;
+  Patients?: {
+    __typename: "ModelDoctorsPatientsConnection";
     items: Array<{
-      __typename: "Todo";
+      __typename: "DoctorsPatients";
       id: string;
-      name: string;
-      description?: string | null;
+      patientID: string;
       doctorID: string;
       createdAt: string;
       updatedAt: string;
@@ -268,7 +418,6 @@ export type DeleteDoctorMutation = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
-  licenseNum?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -276,12 +425,43 @@ export type DeleteDoctorMutation = {
   _lastChangedAt: number;
 };
 
-export type CreateTodoMutation = {
-  __typename: "Todo";
+export type CreateDoctorsPatientsMutation = {
+  __typename: "DoctorsPatients";
   id: string;
-  name: string;
-  description?: string | null;
+  patientID: string;
   doctorID: string;
+  patient: {
+    __typename: "Patient";
+    id: string;
+    name?: string | null;
+    age?: number | null;
+    doctors?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  };
+  doctor: {
+    __typename: "Doctor";
+    id: string;
+    name?: string | null;
+    licenseNum: string;
+    Patients?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  };
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -289,12 +469,43 @@ export type CreateTodoMutation = {
   _lastChangedAt: number;
 };
 
-export type UpdateTodoMutation = {
-  __typename: "Todo";
+export type UpdateDoctorsPatientsMutation = {
+  __typename: "DoctorsPatients";
   id: string;
-  name: string;
-  description?: string | null;
+  patientID: string;
   doctorID: string;
+  patient: {
+    __typename: "Patient";
+    id: string;
+    name?: string | null;
+    age?: number | null;
+    doctors?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  };
+  doctor: {
+    __typename: "Doctor";
+    id: string;
+    name?: string | null;
+    licenseNum: string;
+    Patients?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  };
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -302,30 +513,133 @@ export type UpdateTodoMutation = {
   _lastChangedAt: number;
 };
 
-export type DeleteTodoMutation = {
-  __typename: "Todo";
+export type DeleteDoctorsPatientsMutation = {
+  __typename: "DoctorsPatients";
   id: string;
-  name: string;
-  description?: string | null;
+  patientID: string;
   doctorID: string;
+  patient: {
+    __typename: "Patient";
+    id: string;
+    name?: string | null;
+    age?: number | null;
+    doctors?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  };
+  doctor: {
+    __typename: "Doctor";
+    id: string;
+    name?: string | null;
+    licenseNum: string;
+    Patients?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  };
   createdAt: string;
   updatedAt: string;
   _version: number;
   _deleted?: boolean | null;
   _lastChangedAt: number;
+};
+
+export type GetPatientQuery = {
+  __typename: "Patient";
+  id: string;
+  name?: string | null;
+  age?: number | null;
+  doctors?: {
+    __typename: "ModelDoctorsPatientsConnection";
+    items: Array<{
+      __typename: "DoctorsPatients";
+      id: string;
+      patientID: string;
+      doctorID: string;
+      createdAt: string;
+      updatedAt: string;
+      _version: number;
+      _deleted?: boolean | null;
+      _lastChangedAt: number;
+    } | null>;
+    nextToken?: string | null;
+    startedAt?: number | null;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type ListPatientsQuery = {
+  __typename: "ModelPatientConnection";
+  items: Array<{
+    __typename: "Patient";
+    id: string;
+    name?: string | null;
+    age?: number | null;
+    doctors?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
+};
+
+export type SyncPatientsQuery = {
+  __typename: "ModelPatientConnection";
+  items: Array<{
+    __typename: "Patient";
+    id: string;
+    name?: string | null;
+    age?: number | null;
+    doctors?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  } | null>;
+  nextToken?: string | null;
+  startedAt?: number | null;
 };
 
 export type GetDoctorQuery = {
   __typename: "Doctor";
   id: string;
   name?: string | null;
-  Todos?: {
-    __typename: "ModelTodoConnection";
+  licenseNum: string;
+  Patients?: {
+    __typename: "ModelDoctorsPatientsConnection";
     items: Array<{
-      __typename: "Todo";
+      __typename: "DoctorsPatients";
       id: string;
-      name: string;
-      description?: string | null;
+      patientID: string;
       doctorID: string;
       createdAt: string;
       updatedAt: string;
@@ -336,7 +650,6 @@ export type GetDoctorQuery = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
-  licenseNum?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -350,12 +663,12 @@ export type ListDoctorsQuery = {
     __typename: "Doctor";
     id: string;
     name?: string | null;
-    Todos?: {
-      __typename: "ModelTodoConnection";
+    licenseNum: string;
+    Patients?: {
+      __typename: "ModelDoctorsPatientsConnection";
       nextToken?: string | null;
       startedAt?: number | null;
     } | null;
-    licenseNum?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -372,12 +685,12 @@ export type SyncDoctorsQuery = {
     __typename: "Doctor";
     id: string;
     name?: string | null;
-    Todos?: {
-      __typename: "ModelTodoConnection";
+    licenseNum: string;
+    Patients?: {
+      __typename: "ModelDoctorsPatientsConnection";
       nextToken?: string | null;
       startedAt?: number | null;
     } | null;
-    licenseNum?: string | null;
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -388,12 +701,43 @@ export type SyncDoctorsQuery = {
   startedAt?: number | null;
 };
 
-export type GetTodoQuery = {
-  __typename: "Todo";
+export type GetDoctorsPatientsQuery = {
+  __typename: "DoctorsPatients";
   id: string;
-  name: string;
-  description?: string | null;
+  patientID: string;
   doctorID: string;
+  patient: {
+    __typename: "Patient";
+    id: string;
+    name?: string | null;
+    age?: number | null;
+    doctors?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  };
+  doctor: {
+    __typename: "Doctor";
+    id: string;
+    name?: string | null;
+    licenseNum: string;
+    Patients?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  };
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -401,14 +745,35 @@ export type GetTodoQuery = {
   _lastChangedAt: number;
 };
 
-export type ListTodosQuery = {
-  __typename: "ModelTodoConnection";
+export type ListDoctorsPatientsQuery = {
+  __typename: "ModelDoctorsPatientsConnection";
   items: Array<{
-    __typename: "Todo";
+    __typename: "DoctorsPatients";
     id: string;
-    name: string;
-    description?: string | null;
+    patientID: string;
     doctorID: string;
+    patient: {
+      __typename: "Patient";
+      id: string;
+      name?: string | null;
+      age?: number | null;
+      createdAt: string;
+      updatedAt: string;
+      _version: number;
+      _deleted?: boolean | null;
+      _lastChangedAt: number;
+    };
+    doctor: {
+      __typename: "Doctor";
+      id: string;
+      name?: string | null;
+      licenseNum: string;
+      createdAt: string;
+      updatedAt: string;
+      _version: number;
+      _deleted?: boolean | null;
+      _lastChangedAt: number;
+    };
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -419,14 +784,35 @@ export type ListTodosQuery = {
   startedAt?: number | null;
 };
 
-export type SyncTodosQuery = {
-  __typename: "ModelTodoConnection";
+export type SyncDoctorsPatientsQuery = {
+  __typename: "ModelDoctorsPatientsConnection";
   items: Array<{
-    __typename: "Todo";
+    __typename: "DoctorsPatients";
     id: string;
-    name: string;
-    description?: string | null;
+    patientID: string;
     doctorID: string;
+    patient: {
+      __typename: "Patient";
+      id: string;
+      name?: string | null;
+      age?: number | null;
+      createdAt: string;
+      updatedAt: string;
+      _version: number;
+      _deleted?: boolean | null;
+      _lastChangedAt: number;
+    };
+    doctor: {
+      __typename: "Doctor";
+      id: string;
+      name?: string | null;
+      licenseNum: string;
+      createdAt: string;
+      updatedAt: string;
+      _version: number;
+      _deleted?: boolean | null;
+      _lastChangedAt: number;
+    };
     createdAt: string;
     updatedAt: string;
     _version: number;
@@ -437,17 +823,17 @@ export type SyncTodosQuery = {
   startedAt?: number | null;
 };
 
-export type OnCreateDoctorSubscription = {
-  __typename: "Doctor";
+export type OnCreatePatientSubscription = {
+  __typename: "Patient";
   id: string;
   name?: string | null;
-  Todos?: {
-    __typename: "ModelTodoConnection";
+  age?: number | null;
+  doctors?: {
+    __typename: "ModelDoctorsPatientsConnection";
     items: Array<{
-      __typename: "Todo";
+      __typename: "DoctorsPatients";
       id: string;
-      name: string;
-      description?: string | null;
+      patientID: string;
       doctorID: string;
       createdAt: string;
       updatedAt: string;
@@ -458,7 +844,90 @@ export type OnCreateDoctorSubscription = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
-  licenseNum?: string | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type OnUpdatePatientSubscription = {
+  __typename: "Patient";
+  id: string;
+  name?: string | null;
+  age?: number | null;
+  doctors?: {
+    __typename: "ModelDoctorsPatientsConnection";
+    items: Array<{
+      __typename: "DoctorsPatients";
+      id: string;
+      patientID: string;
+      doctorID: string;
+      createdAt: string;
+      updatedAt: string;
+      _version: number;
+      _deleted?: boolean | null;
+      _lastChangedAt: number;
+    } | null>;
+    nextToken?: string | null;
+    startedAt?: number | null;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type OnDeletePatientSubscription = {
+  __typename: "Patient";
+  id: string;
+  name?: string | null;
+  age?: number | null;
+  doctors?: {
+    __typename: "ModelDoctorsPatientsConnection";
+    items: Array<{
+      __typename: "DoctorsPatients";
+      id: string;
+      patientID: string;
+      doctorID: string;
+      createdAt: string;
+      updatedAt: string;
+      _version: number;
+      _deleted?: boolean | null;
+      _lastChangedAt: number;
+    } | null>;
+    nextToken?: string | null;
+    startedAt?: number | null;
+  } | null;
+  createdAt: string;
+  updatedAt: string;
+  _version: number;
+  _deleted?: boolean | null;
+  _lastChangedAt: number;
+};
+
+export type OnCreateDoctorSubscription = {
+  __typename: "Doctor";
+  id: string;
+  name?: string | null;
+  licenseNum: string;
+  Patients?: {
+    __typename: "ModelDoctorsPatientsConnection";
+    items: Array<{
+      __typename: "DoctorsPatients";
+      id: string;
+      patientID: string;
+      doctorID: string;
+      createdAt: string;
+      updatedAt: string;
+      _version: number;
+      _deleted?: boolean | null;
+      _lastChangedAt: number;
+    } | null>;
+    nextToken?: string | null;
+    startedAt?: number | null;
+  } | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -470,13 +939,13 @@ export type OnUpdateDoctorSubscription = {
   __typename: "Doctor";
   id: string;
   name?: string | null;
-  Todos?: {
-    __typename: "ModelTodoConnection";
+  licenseNum: string;
+  Patients?: {
+    __typename: "ModelDoctorsPatientsConnection";
     items: Array<{
-      __typename: "Todo";
+      __typename: "DoctorsPatients";
       id: string;
-      name: string;
-      description?: string | null;
+      patientID: string;
       doctorID: string;
       createdAt: string;
       updatedAt: string;
@@ -487,7 +956,6 @@ export type OnUpdateDoctorSubscription = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
-  licenseNum?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -499,13 +967,13 @@ export type OnDeleteDoctorSubscription = {
   __typename: "Doctor";
   id: string;
   name?: string | null;
-  Todos?: {
-    __typename: "ModelTodoConnection";
+  licenseNum: string;
+  Patients?: {
+    __typename: "ModelDoctorsPatientsConnection";
     items: Array<{
-      __typename: "Todo";
+      __typename: "DoctorsPatients";
       id: string;
-      name: string;
-      description?: string | null;
+      patientID: string;
       doctorID: string;
       createdAt: string;
       updatedAt: string;
@@ -516,7 +984,6 @@ export type OnDeleteDoctorSubscription = {
     nextToken?: string | null;
     startedAt?: number | null;
   } | null;
-  licenseNum?: string | null;
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -524,12 +991,43 @@ export type OnDeleteDoctorSubscription = {
   _lastChangedAt: number;
 };
 
-export type OnCreateTodoSubscription = {
-  __typename: "Todo";
+export type OnCreateDoctorsPatientsSubscription = {
+  __typename: "DoctorsPatients";
   id: string;
-  name: string;
-  description?: string | null;
+  patientID: string;
   doctorID: string;
+  patient: {
+    __typename: "Patient";
+    id: string;
+    name?: string | null;
+    age?: number | null;
+    doctors?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  };
+  doctor: {
+    __typename: "Doctor";
+    id: string;
+    name?: string | null;
+    licenseNum: string;
+    Patients?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  };
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -537,12 +1035,43 @@ export type OnCreateTodoSubscription = {
   _lastChangedAt: number;
 };
 
-export type OnUpdateTodoSubscription = {
-  __typename: "Todo";
+export type OnUpdateDoctorsPatientsSubscription = {
+  __typename: "DoctorsPatients";
   id: string;
-  name: string;
-  description?: string | null;
+  patientID: string;
   doctorID: string;
+  patient: {
+    __typename: "Patient";
+    id: string;
+    name?: string | null;
+    age?: number | null;
+    doctors?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  };
+  doctor: {
+    __typename: "Doctor";
+    id: string;
+    name?: string | null;
+    licenseNum: string;
+    Patients?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  };
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -550,12 +1079,43 @@ export type OnUpdateTodoSubscription = {
   _lastChangedAt: number;
 };
 
-export type OnDeleteTodoSubscription = {
-  __typename: "Todo";
+export type OnDeleteDoctorsPatientsSubscription = {
+  __typename: "DoctorsPatients";
   id: string;
-  name: string;
-  description?: string | null;
+  patientID: string;
   doctorID: string;
+  patient: {
+    __typename: "Patient";
+    id: string;
+    name?: string | null;
+    age?: number | null;
+    doctors?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  };
+  doctor: {
+    __typename: "Doctor";
+    id: string;
+    name?: string | null;
+    licenseNum: string;
+    Patients?: {
+      __typename: "ModelDoctorsPatientsConnection";
+      nextToken?: string | null;
+      startedAt?: number | null;
+    } | null;
+    createdAt: string;
+    updatedAt: string;
+    _version: number;
+    _deleted?: boolean | null;
+    _lastChangedAt: number;
+  };
   createdAt: string;
   updatedAt: string;
   _version: number;
@@ -567,22 +1127,22 @@ export type OnDeleteTodoSubscription = {
   providedIn: "root"
 })
 export class APIService {
-  async CreateDoctor(
-    input: CreateDoctorInput,
-    condition?: ModelDoctorConditionInput
-  ): Promise<CreateDoctorMutation> {
-    const statement = `mutation CreateDoctor($input: CreateDoctorInput!, $condition: ModelDoctorConditionInput) {
-        createDoctor(input: $input, condition: $condition) {
+  async CreatePatient(
+    input: CreatePatientInput,
+    condition?: ModelPatientConditionInput
+  ): Promise<CreatePatientMutation> {
+    const statement = `mutation CreatePatient($input: CreatePatientInput!, $condition: ModelPatientConditionInput) {
+        createPatient(input: $input, condition: $condition) {
           __typename
           id
           name
-          Todos {
+          age
+          doctors {
             __typename
             items {
               __typename
               id
-              name
-              description
+              patientID
               doctorID
               createdAt
               updatedAt
@@ -593,7 +1153,138 @@ export class APIService {
             nextToken
             startedAt
           }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreatePatientMutation>response.data.createPatient;
+  }
+  async UpdatePatient(
+    input: UpdatePatientInput,
+    condition?: ModelPatientConditionInput
+  ): Promise<UpdatePatientMutation> {
+    const statement = `mutation UpdatePatient($input: UpdatePatientInput!, $condition: ModelPatientConditionInput) {
+        updatePatient(input: $input, condition: $condition) {
+          __typename
+          id
+          name
+          age
+          doctors {
+            __typename
+            items {
+              __typename
+              id
+              patientID
+              doctorID
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            nextToken
+            startedAt
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdatePatientMutation>response.data.updatePatient;
+  }
+  async DeletePatient(
+    input: DeletePatientInput,
+    condition?: ModelPatientConditionInput
+  ): Promise<DeletePatientMutation> {
+    const statement = `mutation DeletePatient($input: DeletePatientInput!, $condition: ModelPatientConditionInput) {
+        deletePatient(input: $input, condition: $condition) {
+          __typename
+          id
+          name
+          age
+          doctors {
+            __typename
+            items {
+              __typename
+              id
+              patientID
+              doctorID
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            nextToken
+            startedAt
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeletePatientMutation>response.data.deletePatient;
+  }
+  async CreateDoctor(
+    input: CreateDoctorInput,
+    condition?: ModelDoctorConditionInput
+  ): Promise<CreateDoctorMutation> {
+    const statement = `mutation CreateDoctor($input: CreateDoctorInput!, $condition: ModelDoctorConditionInput) {
+        createDoctor(input: $input, condition: $condition) {
+          __typename
+          id
+          name
           licenseNum
+          Patients {
+            __typename
+            items {
+              __typename
+              id
+              patientID
+              doctorID
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            nextToken
+            startedAt
+          }
           createdAt
           updatedAt
           _version
@@ -621,13 +1312,13 @@ export class APIService {
           __typename
           id
           name
-          Todos {
+          licenseNum
+          Patients {
             __typename
             items {
               __typename
               id
-              name
-              description
+              patientID
               doctorID
               createdAt
               updatedAt
@@ -638,7 +1329,6 @@ export class APIService {
             nextToken
             startedAt
           }
-          licenseNum
           createdAt
           updatedAt
           _version
@@ -666,13 +1356,13 @@ export class APIService {
           __typename
           id
           name
-          Todos {
+          licenseNum
+          Patients {
             __typename
             items {
               __typename
               id
-              name
-              description
+              patientID
               doctorID
               createdAt
               updatedAt
@@ -683,7 +1373,6 @@ export class APIService {
             nextToken
             startedAt
           }
-          licenseNum
           createdAt
           updatedAt
           _version
@@ -702,17 +1391,48 @@ export class APIService {
     )) as any;
     return <DeleteDoctorMutation>response.data.deleteDoctor;
   }
-  async CreateTodo(
-    input: CreateTodoInput,
-    condition?: ModelTodoConditionInput
-  ): Promise<CreateTodoMutation> {
-    const statement = `mutation CreateTodo($input: CreateTodoInput!, $condition: ModelTodoConditionInput) {
-        createTodo(input: $input, condition: $condition) {
+  async CreateDoctorsPatients(
+    input: CreateDoctorsPatientsInput,
+    condition?: ModelDoctorsPatientsConditionInput
+  ): Promise<CreateDoctorsPatientsMutation> {
+    const statement = `mutation CreateDoctorsPatients($input: CreateDoctorsPatientsInput!, $condition: ModelDoctorsPatientsConditionInput) {
+        createDoctorsPatients(input: $input, condition: $condition) {
           __typename
           id
-          name
-          description
+          patientID
           doctorID
+          patient {
+            __typename
+            id
+            name
+            age
+            doctors {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          doctor {
+            __typename
+            id
+            name
+            licenseNum
+            Patients {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
           createdAt
           updatedAt
           _version
@@ -729,19 +1449,50 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <CreateTodoMutation>response.data.createTodo;
+    return <CreateDoctorsPatientsMutation>response.data.createDoctorsPatients;
   }
-  async UpdateTodo(
-    input: UpdateTodoInput,
-    condition?: ModelTodoConditionInput
-  ): Promise<UpdateTodoMutation> {
-    const statement = `mutation UpdateTodo($input: UpdateTodoInput!, $condition: ModelTodoConditionInput) {
-        updateTodo(input: $input, condition: $condition) {
+  async UpdateDoctorsPatients(
+    input: UpdateDoctorsPatientsInput,
+    condition?: ModelDoctorsPatientsConditionInput
+  ): Promise<UpdateDoctorsPatientsMutation> {
+    const statement = `mutation UpdateDoctorsPatients($input: UpdateDoctorsPatientsInput!, $condition: ModelDoctorsPatientsConditionInput) {
+        updateDoctorsPatients(input: $input, condition: $condition) {
           __typename
           id
-          name
-          description
+          patientID
           doctorID
+          patient {
+            __typename
+            id
+            name
+            age
+            doctors {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          doctor {
+            __typename
+            id
+            name
+            licenseNum
+            Patients {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
           createdAt
           updatedAt
           _version
@@ -758,19 +1509,50 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <UpdateTodoMutation>response.data.updateTodo;
+    return <UpdateDoctorsPatientsMutation>response.data.updateDoctorsPatients;
   }
-  async DeleteTodo(
-    input: DeleteTodoInput,
-    condition?: ModelTodoConditionInput
-  ): Promise<DeleteTodoMutation> {
-    const statement = `mutation DeleteTodo($input: DeleteTodoInput!, $condition: ModelTodoConditionInput) {
-        deleteTodo(input: $input, condition: $condition) {
+  async DeleteDoctorsPatients(
+    input: DeleteDoctorsPatientsInput,
+    condition?: ModelDoctorsPatientsConditionInput
+  ): Promise<DeleteDoctorsPatientsMutation> {
+    const statement = `mutation DeleteDoctorsPatients($input: DeleteDoctorsPatientsInput!, $condition: ModelDoctorsPatientsConditionInput) {
+        deleteDoctorsPatients(input: $input, condition: $condition) {
           __typename
           id
-          name
-          description
+          patientID
           doctorID
+          patient {
+            __typename
+            id
+            name
+            age
+            doctors {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          doctor {
+            __typename
+            id
+            name
+            licenseNum
+            Patients {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
           createdAt
           updatedAt
           _version
@@ -787,21 +1569,21 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <DeleteTodoMutation>response.data.deleteTodo;
+    return <DeleteDoctorsPatientsMutation>response.data.deleteDoctorsPatients;
   }
-  async GetDoctor(id: string): Promise<GetDoctorQuery> {
-    const statement = `query GetDoctor($id: ID!) {
-        getDoctor(id: $id) {
+  async GetPatient(id: string): Promise<GetPatientQuery> {
+    const statement = `query GetPatient($id: ID!) {
+        getPatient(id: $id) {
           __typename
           id
           name
-          Todos {
+          age
+          doctors {
             __typename
             items {
               __typename
               id
-              name
-              description
+              patientID
               doctorID
               createdAt
               updatedAt
@@ -812,7 +1594,134 @@ export class APIService {
             nextToken
             startedAt
           }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetPatientQuery>response.data.getPatient;
+  }
+  async ListPatients(
+    filter?: ModelPatientFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListPatientsQuery> {
+    const statement = `query ListPatients($filter: ModelPatientFilterInput, $limit: Int, $nextToken: String) {
+        listPatients(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            name
+            age
+            doctors {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListPatientsQuery>response.data.listPatients;
+  }
+  async SyncPatients(
+    filter?: ModelPatientFilterInput,
+    limit?: number,
+    nextToken?: string,
+    lastSync?: number
+  ): Promise<SyncPatientsQuery> {
+    const statement = `query SyncPatients($filter: ModelPatientFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncPatients(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+          __typename
+          items {
+            __typename
+            id
+            name
+            age
+            doctors {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          nextToken
+          startedAt
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    if (lastSync) {
+      gqlAPIServiceArguments.lastSync = lastSync;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <SyncPatientsQuery>response.data.syncPatients;
+  }
+  async GetDoctor(id: string): Promise<GetDoctorQuery> {
+    const statement = `query GetDoctor($id: ID!) {
+        getDoctor(id: $id) {
+          __typename
+          id
+          name
           licenseNum
+          Patients {
+            __typename
+            items {
+              __typename
+              id
+              patientID
+              doctorID
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            nextToken
+            startedAt
+          }
           createdAt
           updatedAt
           _version
@@ -840,12 +1749,12 @@ export class APIService {
             __typename
             id
             name
-            Todos {
+            licenseNum
+            Patients {
               __typename
               nextToken
               startedAt
             }
-            licenseNum
             createdAt
             updatedAt
             _version
@@ -884,12 +1793,12 @@ export class APIService {
             __typename
             id
             name
-            Todos {
+            licenseNum
+            Patients {
               __typename
               nextToken
               startedAt
             }
-            licenseNum
             createdAt
             updatedAt
             _version
@@ -918,14 +1827,45 @@ export class APIService {
     )) as any;
     return <SyncDoctorsQuery>response.data.syncDoctors;
   }
-  async GetTodo(id: string): Promise<GetTodoQuery> {
-    const statement = `query GetTodo($id: ID!) {
-        getTodo(id: $id) {
+  async GetDoctorsPatients(id: string): Promise<GetDoctorsPatientsQuery> {
+    const statement = `query GetDoctorsPatients($id: ID!) {
+        getDoctorsPatients(id: $id) {
           __typename
           id
-          name
-          description
+          patientID
           doctorID
+          patient {
+            __typename
+            id
+            name
+            age
+            doctors {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          doctor {
+            __typename
+            id
+            name
+            licenseNum
+            Patients {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
           createdAt
           updatedAt
           _version
@@ -939,22 +1879,43 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <GetTodoQuery>response.data.getTodo;
+    return <GetDoctorsPatientsQuery>response.data.getDoctorsPatients;
   }
-  async ListTodos(
-    filter?: ModelTodoFilterInput,
+  async ListDoctorsPatients(
+    filter?: ModelDoctorsPatientsFilterInput,
     limit?: number,
     nextToken?: string
-  ): Promise<ListTodosQuery> {
-    const statement = `query ListTodos($filter: ModelTodoFilterInput, $limit: Int, $nextToken: String) {
-        listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  ): Promise<ListDoctorsPatientsQuery> {
+    const statement = `query ListDoctorsPatients($filter: ModelDoctorsPatientsFilterInput, $limit: Int, $nextToken: String) {
+        listDoctorsPatients(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
           items {
             __typename
             id
-            name
-            description
+            patientID
             doctorID
+            patient {
+              __typename
+              id
+              name
+              age
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            doctor {
+              __typename
+              id
+              name
+              licenseNum
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdAt
             updatedAt
             _version
@@ -978,23 +1939,44 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <ListTodosQuery>response.data.listTodos;
+    return <ListDoctorsPatientsQuery>response.data.listDoctorsPatients;
   }
-  async SyncTodos(
-    filter?: ModelTodoFilterInput,
+  async SyncDoctorsPatients(
+    filter?: ModelDoctorsPatientsFilterInput,
     limit?: number,
     nextToken?: string,
     lastSync?: number
-  ): Promise<SyncTodosQuery> {
-    const statement = `query SyncTodos($filter: ModelTodoFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
-        syncTodos(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
+  ): Promise<SyncDoctorsPatientsQuery> {
+    const statement = `query SyncDoctorsPatients($filter: ModelDoctorsPatientsFilterInput, $limit: Int, $nextToken: String, $lastSync: AWSTimestamp) {
+        syncDoctorsPatients(filter: $filter, limit: $limit, nextToken: $nextToken, lastSync: $lastSync) {
           __typename
           items {
             __typename
             id
-            name
-            description
+            patientID
             doctorID
+            patient {
+              __typename
+              id
+              name
+              age
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            doctor {
+              __typename
+              id
+              name
+              licenseNum
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+            }
             createdAt
             updatedAt
             _version
@@ -1021,24 +2003,24 @@ export class APIService {
     const response = (await API.graphql(
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
-    return <SyncTodosQuery>response.data.syncTodos;
+    return <SyncDoctorsPatientsQuery>response.data.syncDoctorsPatients;
   }
-  OnCreateDoctorListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateDoctor">>
+  OnCreatePatientListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePatient">>
   > = API.graphql(
     graphqlOperation(
-      `subscription OnCreateDoctor {
-        onCreateDoctor {
+      `subscription OnCreatePatient {
+        onCreatePatient {
           __typename
           id
           name
-          Todos {
+          age
+          doctors {
             __typename
             items {
               __typename
               id
-              name
-              description
+              patientID
               doctorID
               createdAt
               updatedAt
@@ -1049,7 +2031,120 @@ export class APIService {
             nextToken
             startedAt
           }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreatePatient">>
+  >;
+
+  OnUpdatePatientListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePatient">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdatePatient {
+        onUpdatePatient {
+          __typename
+          id
+          name
+          age
+          doctors {
+            __typename
+            items {
+              __typename
+              id
+              patientID
+              doctorID
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            nextToken
+            startedAt
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdatePatient">>
+  >;
+
+  OnDeletePatientListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePatient">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeletePatient {
+        onDeletePatient {
+          __typename
+          id
+          name
+          age
+          doctors {
+            __typename
+            items {
+              __typename
+              id
+              patientID
+              doctorID
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            nextToken
+            startedAt
+          }
+          createdAt
+          updatedAt
+          _version
+          _deleted
+          _lastChangedAt
+        }
+      }`
+    )
+  ) as Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeletePatient">>
+  >;
+
+  OnCreateDoctorListener: Observable<
+    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateDoctor">>
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreateDoctor {
+        onCreateDoctor {
+          __typename
+          id
+          name
           licenseNum
+          Patients {
+            __typename
+            items {
+              __typename
+              id
+              patientID
+              doctorID
+              createdAt
+              updatedAt
+              _version
+              _deleted
+              _lastChangedAt
+            }
+            nextToken
+            startedAt
+          }
           createdAt
           updatedAt
           _version
@@ -1071,13 +2166,13 @@ export class APIService {
           __typename
           id
           name
-          Todos {
+          licenseNum
+          Patients {
             __typename
             items {
               __typename
               id
-              name
-              description
+              patientID
               doctorID
               createdAt
               updatedAt
@@ -1088,7 +2183,6 @@ export class APIService {
             nextToken
             startedAt
           }
-          licenseNum
           createdAt
           updatedAt
           _version
@@ -1110,13 +2204,13 @@ export class APIService {
           __typename
           id
           name
-          Todos {
+          licenseNum
+          Patients {
             __typename
             items {
               __typename
               id
-              name
-              description
+              patientID
               doctorID
               createdAt
               updatedAt
@@ -1127,7 +2221,6 @@ export class APIService {
             nextToken
             startedAt
           }
-          licenseNum
           createdAt
           updatedAt
           _version
@@ -1140,17 +2233,50 @@ export class APIService {
     SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteDoctor">>
   >;
 
-  OnCreateTodoListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateTodo">>
+  OnCreateDoctorsPatientsListener: Observable<
+    SubscriptionResponse<
+      Pick<__SubscriptionContainer, "onCreateDoctorsPatients">
+    >
   > = API.graphql(
     graphqlOperation(
-      `subscription OnCreateTodo {
-        onCreateTodo {
+      `subscription OnCreateDoctorsPatients {
+        onCreateDoctorsPatients {
           __typename
           id
-          name
-          description
+          patientID
           doctorID
+          patient {
+            __typename
+            id
+            name
+            age
+            doctors {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          doctor {
+            __typename
+            id
+            name
+            licenseNum
+            Patients {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
           createdAt
           updatedAt
           _version
@@ -1160,20 +2286,55 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onCreateTodo">>
+    SubscriptionResponse<
+      Pick<__SubscriptionContainer, "onCreateDoctorsPatients">
+    >
   >;
 
-  OnUpdateTodoListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateTodo">>
+  OnUpdateDoctorsPatientsListener: Observable<
+    SubscriptionResponse<
+      Pick<__SubscriptionContainer, "onUpdateDoctorsPatients">
+    >
   > = API.graphql(
     graphqlOperation(
-      `subscription OnUpdateTodo {
-        onUpdateTodo {
+      `subscription OnUpdateDoctorsPatients {
+        onUpdateDoctorsPatients {
           __typename
           id
-          name
-          description
+          patientID
           doctorID
+          patient {
+            __typename
+            id
+            name
+            age
+            doctors {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          doctor {
+            __typename
+            id
+            name
+            licenseNum
+            Patients {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
           createdAt
           updatedAt
           _version
@@ -1183,20 +2344,55 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onUpdateTodo">>
+    SubscriptionResponse<
+      Pick<__SubscriptionContainer, "onUpdateDoctorsPatients">
+    >
   >;
 
-  OnDeleteTodoListener: Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteTodo">>
+  OnDeleteDoctorsPatientsListener: Observable<
+    SubscriptionResponse<
+      Pick<__SubscriptionContainer, "onDeleteDoctorsPatients">
+    >
   > = API.graphql(
     graphqlOperation(
-      `subscription OnDeleteTodo {
-        onDeleteTodo {
+      `subscription OnDeleteDoctorsPatients {
+        onDeleteDoctorsPatients {
           __typename
           id
-          name
-          description
+          patientID
           doctorID
+          patient {
+            __typename
+            id
+            name
+            age
+            doctors {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
+          doctor {
+            __typename
+            id
+            name
+            licenseNum
+            Patients {
+              __typename
+              nextToken
+              startedAt
+            }
+            createdAt
+            updatedAt
+            _version
+            _deleted
+            _lastChangedAt
+          }
           createdAt
           updatedAt
           _version
@@ -1206,6 +2402,8 @@ export class APIService {
       }`
     )
   ) as Observable<
-    SubscriptionResponse<Pick<__SubscriptionContainer, "onDeleteTodo">>
+    SubscriptionResponse<
+      Pick<__SubscriptionContainer, "onDeleteDoctorsPatients">
+    >
   >;
 }

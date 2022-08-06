@@ -1,14 +1,13 @@
+type Patient @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  age: Int
+  doctors: [Doctor] @manyToMany(relationName: "DoctorsPatients")
+}
+
 type Doctor @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
-  Todos: [Todo] @hasMany(indexName: "byDoctor", fields: ["id"])
-  licenseNum: String
-}
-
-type Todo @model @auth(rules: [{allow: public}]) {
-  id: ID!
-  name: String!
-  description: String
-  doctorID: ID! @index(name: "byDoctor")
-}
- 
+  licenseNum: String!
+  Patients: [Patient] @manyToMany(relationName: "DoctorsPatients")
+} 

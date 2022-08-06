@@ -1,13 +1,13 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreateDoctor {
-  onCreateDoctor {
+subscription OnCreatePatient {
+  onCreatePatient {
     id
     name
-    Todos {
+    age
+    doctors {
       items {
         id
-        name
-        description
+        patientID
         doctorID
         createdAt
         updatedAt
@@ -18,7 +18,84 @@ subscription OnCreateDoctor {
       nextToken
       startedAt
     }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnUpdatePatient {
+  onUpdatePatient {
+    id
+    name
+    age
+    doctors {
+      items {
+        id
+        patientID
+        doctorID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnDeletePatient {
+  onDeletePatient {
+    id
+    name
+    age
+    doctors {
+      items {
+        id
+        patientID
+        doctorID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
+    createdAt
+    updatedAt
+    _version
+    _deleted
+    _lastChangedAt
+  }
+}
+subscription OnCreateDoctor {
+  onCreateDoctor {
+    id
+    name
     licenseNum
+    Patients {
+      items {
+        id
+        patientID
+        doctorID
+        createdAt
+        updatedAt
+        _version
+        _deleted
+        _lastChangedAt
+      }
+      nextToken
+      startedAt
+    }
     createdAt
     updatedAt
     _version
@@ -30,11 +107,11 @@ subscription OnUpdateDoctor {
   onUpdateDoctor {
     id
     name
-    Todos {
+    licenseNum
+    Patients {
       items {
         id
-        name
-        description
+        patientID
         doctorID
         createdAt
         updatedAt
@@ -45,7 +122,6 @@ subscription OnUpdateDoctor {
       nextToken
       startedAt
     }
-    licenseNum
     createdAt
     updatedAt
     _version
@@ -57,11 +133,11 @@ subscription OnDeleteDoctor {
   onDeleteDoctor {
     id
     name
-    Todos {
+    licenseNum
+    Patients {
       items {
         id
-        name
-        description
+        patientID
         doctorID
         createdAt
         updatedAt
@@ -72,7 +148,6 @@ subscription OnDeleteDoctor {
       nextToken
       startedAt
     }
-    licenseNum
     createdAt
     updatedAt
     _version
@@ -80,12 +155,39 @@ subscription OnDeleteDoctor {
     _lastChangedAt
   }
 }
-subscription OnCreateTodo {
-  onCreateTodo {
+subscription OnCreateDoctorsPatients {
+  onCreateDoctorsPatients {
     id
-    name
-    description
+    patientID
     doctorID
+    patient {
+      id
+      name
+      age
+      doctors {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    doctor {
+      id
+      name
+      licenseNum
+      Patients {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
     createdAt
     updatedAt
     _version
@@ -93,12 +195,39 @@ subscription OnCreateTodo {
     _lastChangedAt
   }
 }
-subscription OnUpdateTodo {
-  onUpdateTodo {
+subscription OnUpdateDoctorsPatients {
+  onUpdateDoctorsPatients {
     id
-    name
-    description
+    patientID
     doctorID
+    patient {
+      id
+      name
+      age
+      doctors {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    doctor {
+      id
+      name
+      licenseNum
+      Patients {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
     createdAt
     updatedAt
     _version
@@ -106,12 +235,39 @@ subscription OnUpdateTodo {
     _lastChangedAt
   }
 }
-subscription OnDeleteTodo {
-  onDeleteTodo {
+subscription OnDeleteDoctorsPatients {
+  onDeleteDoctorsPatients {
     id
-    name
-    description
+    patientID
     doctorID
+    patient {
+      id
+      name
+      age
+      doctors {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
+    doctor {
+      id
+      name
+      licenseNum
+      Patients {
+        nextToken
+        startedAt
+      }
+      createdAt
+      updatedAt
+      _version
+      _deleted
+      _lastChangedAt
+    }
     createdAt
     updatedAt
     _version

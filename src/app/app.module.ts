@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BasicCommonModule } from './basic-components/basic-common.module';
+// import {MatSelectModule} from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { BasicCommonModule } from './basic-components/basic-common.module';
     FormsModule,
     ReactiveFormsModule,
     BasicCommonModule
+    // ,
+    // MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]

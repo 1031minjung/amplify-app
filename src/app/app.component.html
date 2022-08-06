@@ -5,7 +5,8 @@
     let-signOut="signOut"
   >
     <h1>Welcome {{ user.username }}!</h1>
-    <div class="form-body">
+    <app-doctor></app-doctor>
+    <!-- <div class="form-body">
       <form autocomplete="off" [formGroup]="createForm" (ngSubmit)="onCreate(createForm.value)">
         <div>
           <label>Name: </label>
@@ -15,13 +16,18 @@
           <label>description: </label>
           <input type="text" formControlName="description" autocomplete="off" />
         </div>
+        <div>
+          <label>Dr ID: </label>
+          <input type="text" formControlName="doctorId" autocomplete="off" />
+        </div>
         <button type="submit">Submit</button>
       </form>
-      <app-doctor></app-doctor>
+      
     </div>
+    <button (click)="onDelete">delete</button>
     <div *ngFor="let todo of todos">
-      <div>{{ todo.name }} - {{ todo.description }}</div>
-    </div>
+      <div>{{ todo.name }} - {{ todo.description }} - {{ todo.doctorID }}</div>
+    </div> -->
     <button (click)="signOut()">Sign Out</button>
   </ng-template>
 </amplify-authenticator>
