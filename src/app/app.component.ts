@@ -34,6 +34,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription = null;
   }
 
+  goToHome() {
+    this.router.navigate(['/']);
+  }
+
   goToDoctor() {
     this.router.navigate(['/', 'doctors']);
   }
