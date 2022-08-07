@@ -18,9 +18,11 @@
         <a (click)="goToAboutUs()">About Us</a>
       </li>
     </ul>
-    <h1>Welcome {{ user.username }}!</h1>
-    this is the Home page
-    <button (click)="signOut()">Sign Out</button>
+    <mat-slider min="1" max="100" step="1" value="50"></mat-slider>
+
+    <h1>Welcome {{ user.username }}!
+      <button (click)="signOut()">Sign Out</button>
+    </h1>
   </ng-template>
 </amplify-authenticator>
 <div>
