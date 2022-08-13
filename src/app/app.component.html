@@ -1,30 +1,47 @@
 <amplify-authenticator>
-  <ng-template
-    amplifySlot="authenticated"
-    let-user="user"
-    let-signOut="signOut"
-  >
-    <ul>
-      <li>
-        <a (click)="goToHome()">Home</a>
-      </li>
-      <li>
-        <a (click)="goToDoctor()">Doctor</a>
-      </li>
-      <li>
-        <a (click)="goToInventory()">Inventory</a>
-      </li>
-      <li>
-        <a (click)="goToAboutUs()">About Us</a>
-      </li>
-    </ul>
-    <mat-slider min="1" max="100" step="1" value="50"></mat-slider>
+  <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
+    <div style="height: 80vh;" [hidden]="!isVisible">
+      <mat-toolbar color="primary">
+        <mat-toolbar-row>
+          <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+            <mat-icon>menu</mat-icon>
+          </button>
+          <a href="/">MJ's Home</a>
+          <!-- <span>MJ's Home</span> -->
+          <span class="menu-spacer"></span>
+          <div fxShow="true" fxHide.lt-md>
+            <!-- The following menu items will be hidden on both SM and XS screen sizes -->
+            <a href="/doctors" mat-button>Doctor</a>
+            <a href="/inventory" mat-button>Inventory</a>
+            <a href="/about-us" mat-button>About Us</a>
+          </div>
+        </mat-toolbar-row>
+      </mat-toolbar>
 
-    <h1>Welcome {{ user.username }}!
-      <button (click)="signOut()">Sign Out</button>
-    </h1>
+      <mat-sidenav-container fxFlexFill>
+        <mat-sidenav #sidenav>
+          <mat-nav-list>
+            <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a>
+            <a href="/doctors" mat-button>Doctor</a>
+            <a href="/inventory" mat-button>Inventory</a>
+            <a href="/about-us" mat-button>About Us</a>
+          </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content fxFlexFill>
+          <div style="height:95%;">
+            <div class="form-group" style="height:100%;">
+              <div id="qtrGrid" class="multiDivsFitScreenWidth">
+                <h1>Welcome {{ user.username }}!
+                  <button (click)="signOut()">Sign Out</button>
+                </h1>
+                <mat-slider min="1" max="100" step="1" value="50"></mat-slider>
+                <router-outlet></router-outlet>
+              </div>
+            </div>
+          </div>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    </div>
   </ng-template>
 </amplify-authenticator>
 <div>
-
-<router-outlet></router-outlet>

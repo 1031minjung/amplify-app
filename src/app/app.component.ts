@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit, OnDestroy {
   title = 'amplify-app';
+  isVisible: boolean = true;
   public createForm: FormGroup;
 
   // public todos: Array<Todo> = [];
@@ -34,18 +35,5 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription = null;
   }
 
-  goToHome() {
-    this.router.navigate(['/']);
-  }
-
-  goToDoctor() {
-    this.router.navigate(['/', 'doctors']);
-  }
-
-  goToInventory() {
-    this.router.navigate(['/', 'inventory']);
-  }
-  goToAboutUs() {
-    this.router.navigate(['/', 'about-us']);
-  }
+  
 }
