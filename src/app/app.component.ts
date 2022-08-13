@@ -16,7 +16,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // public todos: Array<Todo> = [];
 
-  constructor(private api: APIService, private fb: FormBuilder, private router: Router) {
+  constructor(
+    private api: APIService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {
     this.createForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required]
@@ -25,8 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription | null = null;
 
-  async ngOnInit() {
-  }
+  async ngOnInit() {}
 
   ngOnDestroy() {
     if (this.subscription) {

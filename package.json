@@ -23,6 +23,7 @@
     "@angular/router": "^14.0.0",
     "@aws-amplify/ui-angular": "^2.4.17",
     "aws-amplify": "^4.3.30",
+    "ngx-google-places-autocomplete": "^2.0.5",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
