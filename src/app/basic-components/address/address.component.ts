@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AddressComponent implements OnInit {
 
   constructor() { }
-
+  newAddress: any;
   ngOnInit(): void {
   }
 
@@ -17,6 +17,10 @@ export class AddressComponent implements OnInit {
     //setting address from API to local variable
     this.formattedaddress = address.formatted_address;
     console.log(address);
+    this.newAddress = address;
+    console.log(this.newAddress)
+    console.log(this.newAddress.address_components)
+    console.log(this.newAddress.address_components[0].long_name)
   }
 
 }
