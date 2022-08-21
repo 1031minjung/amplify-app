@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
     "@aws-amplify/ui-angular": "^2.4.17",
+    "@ng-select/ng-select": "^9.0.2",
     "aws-amplify": "^4.3.30",
     "ngx-google-places-autocomplete": "^2.0.5",
     "rxjs": "~7.5.0",

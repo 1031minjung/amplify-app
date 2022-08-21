@@ -1,7 +1,7 @@
 <div class="container">
   <h2>Google Places Autocomplete</h2>
-  <input ngx-google-places-autocomplete (onAddressChange)="AddressChange($event)" />
-  {{ formattedaddress }} <br>
+  <input ngx-google-places-autocomplete (onAddressChange)="AddressChange($event)"/>
+  {{ formattedAddress }} <br>
   <div *ngIf=newAddress>
     {{ newAddress.address_components[0].long_name }}<br>
     {{ newAddress.address_components[1].short_name }}<br>
@@ -12,6 +12,40 @@
     {{ newAddress.address_components[6].short_name }}
   </div>
   
-  
+  <form id="address-form" action="" method="get" autocomplete="off">
+    <h2>Sample address form for North America</h2>
+    <p class="note"><em>* = required field</em></p>
+    <label class="full-field">
+      <!-- Avoid the word "address" in id, name, or label text to avoid browser autofill from conflicting with Place Autocomplete. Star or comment bug https://crbug.com/587466 to request Chromium to honor autocomplete="off" attribute. -->
+      <span class="form-label">Deliver to*</span>
+      <input  autocomplete="off" />
+    </label>
+    <label class="full-field">
+      <span class="form-label">Apartment, unit, suite, or floor #</span>
+      <input id="address2" name="address2" />
+    </label>
+    <label class="full-field">
+      <span class="form-label">City*</span>
+      <input id="locality" name="locality" required />
+    </label>
+    <label class="slim-field-left">
+      <span class="form-label">State/Province*</span>
+      <input id="state" name="state" required />
+    </label>
+    <label class="slim-field-right" for="postal_code">
+      <span class="form-label">Postal code*</span>
+      <input id="postcode" name="postcode" required />
+    </label>
+    <label class="full-field">
+      <span class="form-label">Country/Region*</span>
+      <input id="country" name="country" required />
+    </label>
+    <button type="button" class="my-button">Save address</button>
+
+    <!-- Reset button provided for development testing convenience.
+Not recommended for user-facing forms due to risk of mis-click when aiming for Submit button. -->
+    <input type="reset" value="Clear form" />
+  </form>
+
 
 </div>

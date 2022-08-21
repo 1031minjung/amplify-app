@@ -1,3 +1,42 @@
+enum PrismBase {
+  UP
+  DOWN
+  IN
+  OUT
+}
+
+enum RxPurpose {
+  DISTANCE
+  NEAR
+  INTERMEDIATE
+  ALL
+}
+
+enum RxFrom {
+  POL
+  OLD_RX
+  EYE_EXAM
+}
+
+type Rx @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  date: AWSDate
+  from: RxFrom
+  purpose: RxPurpose
+  odSph: Float
+  odCyl: Float
+  odAxis: Int
+  odAdd: Float
+  odPrism: Float
+  odPrismBase: PrismBase
+  osSph: Float
+  osCyl: Float
+  osAxis: Int
+  osAdd: Float
+  osPrism: Float
+  osPrismBase: PrismBase
+}
+
 type Patient @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String
@@ -10,4 +49,5 @@ type Doctor @model @auth(rules: [{allow: public}]) {
   name: String
   licenseNum: String!
   Patients: [Patient] @manyToMany(relationName: "DoctorsPatients")
-} 
+}
+ 

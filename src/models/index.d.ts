@@ -1,8 +1,30 @@
 import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
 
+export enum PrismBase {
+  UP = "UP",
+  DOWN = "DOWN",
+  IN = "IN",
+  OUT = "OUT"
+}
+
+export enum RxPurpose {
+  DISTANCE = "DISTANCE",
+  NEAR = "NEAR",
+  INTERMEDIATE = "INTERMEDIATE",
+  ALL = "ALL"
+}
+
+export enum RxFrom {
+  POL = "POL",
+  OLD_RX = "OLD_RX",
+  EYE_EXAM = "EYE_EXAM"
+}
 
 
 
+type RxMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type PatientMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
@@ -14,6 +36,29 @@ type DoctorMetaData = {
 
 type DoctorsPatientsMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
+}
+
+export declare class Rx {
+  readonly id: string;
+  readonly date?: string | null;
+  readonly from?: RxFrom | keyof typeof RxFrom | null;
+  readonly purpose?: RxPurpose | keyof typeof RxPurpose | null;
+  readonly odSph?: number | null;
+  readonly odCyl?: number | null;
+  readonly odAxis?: number | null;
+  readonly odAdd?: number | null;
+  readonly odPrism?: number | null;
+  readonly odPrismBase?: PrismBase | keyof typeof PrismBase | null;
+  readonly osSph?: number | null;
+  readonly osCyl?: number | null;
+  readonly osAxis?: number | null;
+  readonly osAdd?: number | null;
+  readonly osPrism?: number | null;
+  readonly osPrismBase?: PrismBase | keyof typeof PrismBase | null;
+  readonly createdAt?: string | null;
+  readonly updatedAt?: string | null;
+  constructor(init: ModelInit<Rx, RxMetaData>);
+  static copyOf(source: Rx, mutator: (draft: MutableModel<Rx, RxMetaData>) => MutableModel<Rx, RxMetaData> | void): Rx;
 }
 
 export declare class Patient {

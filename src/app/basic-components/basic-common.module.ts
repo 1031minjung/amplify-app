@@ -9,6 +9,13 @@ import { HomeComponent } from './home/home.component';
 import { AddressComponent } from './address/address.component'
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { MatSliderModule } from '@angular/material/slider';
+import { RxComponent } from './rx/rx.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
     imports: [
@@ -16,7 +23,13 @@ import { MatSliderModule } from '@angular/material/slider';
         ReactiveFormsModule,
         BrowserModule,
         GooglePlaceModule,
-        MatSliderModule
+        MatSliderModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        MatButtonModule,
+        MatAutocompleteModule
     ],
     declarations: [
         DoctorComponent,
@@ -24,7 +37,8 @@ import { MatSliderModule } from '@angular/material/slider';
         InventoryComponent,
         AboutUsComponent,
         HomeComponent,
-        AddressComponent
+        AddressComponent,
+        RxComponent
     ],
     exports: [
         DoctorComponent
