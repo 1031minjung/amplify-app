@@ -1,0 +1,91 @@
+<ng-container [formGroup]="basicRxForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Sph</mat-label>
+    <input
+      matInput
+      id="sph"
+      formControlName="sph"
+      type="text"
+      [matAutocomplete]="autoSph"
+      [ngModel]="formattedRxData.sph"
+      (change)="onSphOrCylChange('sph', basicRxForm.controls['sph'].value)"
+    />
+    <mat-autocomplete #autoSph="matAutocomplete">
+      <mat-option
+        *ngFor="let option of filteredSphRxRangeOptions | async"
+        [value]="option"
+      >
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="basicRxForm.controls['sph'].hasError('required')"
+      >Cannot be empty
+    </mat-error>
+    <mat-error *ngIf="basicRxForm.controls['sph'].hasError('invalidRxFormat')"
+      >Wrong format of Rx
+    </mat-error>
+    <mat-error *ngIf="basicRxForm.controls['sph'].hasError('notNumber')"
+      >Please enter number only
+    </mat-error>
+    <mat-error *ngIf="basicRxForm.controls['sph'].hasError('outOfRxRange')"
+      >The Rx is out of Range
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Cyl</mat-label>
+    <input
+      matInput
+      id="cyl"
+      formControlName="cyl"
+      type="text"
+      [matAutocomplete]="autoCyl"
+      [ngModel]="formattedRxData.cyl"
+      (change)="onSphOrCylChange('cyl', basicRxForm.controls['cyl'].value)"
+    />
+    <mat-autocomplete #autoCyl="matAutocomplete">
+      <mat-option
+        *ngFor="let option of filteredCylRxRangeOptions | async"
+        [value]="option"
+      >
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="basicRxForm.controls['cyl'].hasError('invalidRxFormat')"
+      >Wrong format of Rx
+    </mat-error>
+    <mat-error *ngIf="basicRxForm.controls['cyl'].hasError('notNumber')"
+      >Please enter number only
+    </mat-error>
+    <mat-error *ngIf="basicRxForm.controls['cyl'].hasError('outOfRxRange')"
+      >The Rx is out of Range
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Axis</mat-label>
+    <input
+      matInput
+      formControlName="axis"
+      type="text"
+      [matAutocomplete]="autoAxis"
+      [ngModel]="formattedRxData.axis"
+      (change)="onAxisChange(basicRxForm.controls['axis'].value)"
+    />
+    <mat-autocomplete #autoAxis="matAutocomplete">
+        <mat-option
+          *ngFor="let option of filteredAxisRangeOptions | async"
+          [value]="option"
+        >
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    <mat-error *ngIf="basicRxForm.controls['axis'].hasError('required')"
+      >Cannot be empty
+    </mat-error>
+    <mat-error *ngIf="basicRxForm.controls['axis'].hasError('notNumber')"
+      >Please enter number only
+    </mat-error>
+    <mat-error *ngIf="basicRxForm.controls['axis'].hasError('outOfRxRange')"
+      >The Axis is out of range
+    </mat-error>
+  </mat-form-field>
+</ng-container>

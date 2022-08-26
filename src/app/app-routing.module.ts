@@ -6,6 +6,7 @@ import { DoctorComponent } from './basic-components/doctor/doctor.component';
 import { HomeComponent } from './basic-components/home/home.component';
 import { InventoryComponent } from './basic-components/inventory/inventory.component';
 import { PatientComponent } from './basic-components/patient/patient.component';
+import { RxFormComponent } from './basic-components/rx/rx-form/rx-form.component';
 import { RxComponent } from './basic-components/rx/rx.component';
 
 const routes: Routes = [
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: "rx",
     component: RxComponent
+  },
+  {
+    path: "rx-form",
+    component: RxFormComponent
   },
   {
     path: "address",

@@ -16,6 +16,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { RxFormComponent } from './rx/rx-form/rx-form.component';
+import { BasicRxFormComponent } from './rx/rx-form/basic-rx-form/basic-rx-form.component';
 
 @NgModule({
     imports: [
@@ -38,7 +40,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
         AboutUsComponent,
         HomeComponent,
         AddressComponent,
-        RxComponent
+        RxComponent,
+        RxFormComponent,
+        BasicRxFormComponent
     ],
     exports: [
         DoctorComponent
