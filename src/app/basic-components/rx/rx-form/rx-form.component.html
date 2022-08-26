@@ -1,13 +1,7 @@
 <form [formGroup]="rxForm" (ngSubmit)="onRxFormSave()">
   <div>
     Date:
-    <mat-form-field appearance="fill">
-      <mat-label>Rx is/was on </mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="date" />
-      <mat-hint>MM/DD/YYYY</mat-hint>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
+    <app-date-picker formControlName="date"></app-date-picker>
   </div>
   <div>
     <span>OD: </span>
