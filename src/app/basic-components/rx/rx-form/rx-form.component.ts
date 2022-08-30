@@ -18,8 +18,9 @@ export class RxFormComponent implements OnInit, AfterViewInit {
   });
   showPrism = false;
   prismType = [
-    'horizontal', 'vertical'
+    'Horizontal', 'Vertical'
   ];
+  eyes = ['OD', 'OS'];
   constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
