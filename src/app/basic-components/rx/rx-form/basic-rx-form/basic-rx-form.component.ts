@@ -3,11 +3,12 @@ import { FormControl, FormGroup, NG_VALUE_ACCESSOR, NG_VALIDATORS, AbstractContr
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { rxFormatValidator, rxNumberValidator, rxRangeValidator } from '../../../../validators/rx-validator';
+import { populateRxRange } from '../common-rx-form-functions'
 
 @Component({
   selector: 'app-basic-rx-form',
   templateUrl: './basic-rx-form.component.html',
-  styleUrls: ['./basic-rx-form.component.scss'],
+  styleUrls: ['./basic-rx-form.component.scss', '../rx-form.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -26,43 +27,34 @@ export class BasicRxFormComponent implements OnInit, ControlValueAccessor {
   public basicRxForm: FormGroup = new FormGroup({
     sph: new FormControl('', [Validators.required, rxFormatValidator(), rxNumberValidator(), rxRangeValidator(-20, 20)]),
     cyl: new FormControl('', [rxFormatValidator(), rxNumberValidator(), rxRangeValidator(-20, 0)]),
-    axis: new FormControl('',)
+    axis: new FormControl('',),
+    add: new FormControl('', [rxFormatValidator(), rxNumberValidator(), rxRangeValidator(0, 20)])
   });
   formattedRxData: any;
   sphRxRange: string[] = [];
   cylRxRange: string[] = [];
   axisRange: string[] = [];
+  addRxRange: string[] = [];
   filteredSphRxRangeOptions!: Observable<string[]>;
   filteredCylRxRangeOptions!: Observable<string[]>;
   filteredAxisRangeOptions!: Observable<string[]>;
+  filteredAddRxRangeOptions!: Observable<string[]>;
   hasCylValue = false;
 
   constructor() { }
 
   ngOnInit(): void {
-    this.sphRxRange = this.populateRxRange('increment', -20, 20, 0.25);
-    this.cylRxRange = this.populateRxRange('decrement', -0.25, -20, 0.25);
-    this.axisRange = this.populateRxRange('increment', 1, 180, 1)
+    this.sphRxRange = populateRxRange(true, 'increment', -20, 20, 0.25);
+    this.cylRxRange = populateRxRange(true, 'decrement', -0.25, -20, 0.25);
+    this.axisRange = populateRxRange(false, 'increment', 1, 180, 1);
+    this.addRxRange = populateRxRange(true, 'increment', 0.25, 20, 0.25);
     this.formattedRxData = {
       sph: '',
-      cyl: ''
-    }
+      cyl: '',
+      axis: '',
+      add: ''
+    };
     this.autoCompleteWithOptions();
-  }
-
-  populateRxRange(order: string, start: number, end: number, step: number): string[] {
-    var rxRange = [];
-    for (let i = start; (order === 'increment' ? i <= end : i >= end); (order === 'increment' ? i += step : i -= step)) {
-      step === 0.25 ?
-        rxRange.push(i > 0 ? "+" + (Math.round(i * 100) / 100).toFixed(2) : (Math.round(i * 100) / 100).toFixed(2))
-        : rxRange.push(("00" + i).slice(-3))
-    }
-    return rxRange;
-  }
-
-  private _filter(rxRange: string[], value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return rxRange.filter(option => option.toLowerCase().includes(filterValue));
   }
 
   autoCompleteWithOptions() {
@@ -78,10 +70,18 @@ export class BasicRxFormComponent implements OnInit, ControlValueAccessor {
       startWith(''),
       map(value => this._filter(this.axisRange, value || ''))
     );
+    this.filteredAddRxRangeOptions = this.basicRxForm.controls['add'].valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(this.addRxRange, value || ''))
+    );
   }
 
-  onSphOrCylChange(key: string, value: any) {
-    console.log(!isNaN(value))
+  _filter(rxRange: string[], value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return rxRange.filter(option => option.toLowerCase().includes(filterValue));
+  };
+
+  onSphCylAddChange(key: string, value: any) {
     if (!isNaN(value)) {
       console.log((Math.round(value * 100) / 100).toFixed(2))
       var formattedRx = (Math.round(value * 100) / 100).toFixed(2);

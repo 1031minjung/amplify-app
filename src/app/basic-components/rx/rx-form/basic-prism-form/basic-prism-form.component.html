@@ -1,0 +1,30 @@
+<ng-container [formGroup]="basicPrismForm">
+  <mat-form-field appearance="fill">
+    <mat-label>{{ prismTypeTitle }} Amount</mat-label>
+    <input
+      matInput
+      id="amount"
+      formControlName="amount"
+      type="text"
+      [matAutocomplete]="autoAmount"
+      [ngModel]="formattedPrismData.amount"
+      (change)="onPrismAmountChange(basicPrismForm.controls['amount'].value)"
+    />
+    <mat-autocomplete #autoAmount="matAutocomplete">
+      <mat-option
+        *ngFor="let option of filteredAmountOptions | async"
+        [value]="option"
+      >
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>{{ prismTypeTitle }} Base</mat-label>
+    <mat-select id="base" formControlName="base">
+      <mat-option *ngFor="let base of prismBases" [value]="base">
+        {{ base }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-container>

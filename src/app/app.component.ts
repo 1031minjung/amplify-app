@@ -1,8 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { APIService } from './API.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -14,12 +12,8 @@ export class AppComponent implements OnInit, OnDestroy {
   isVisible: boolean = true;
   public createForm: FormGroup;
 
-  // public todos: Array<Todo> = [];
-
   constructor(
-    private api: APIService,
     private fb: FormBuilder,
-    private router: Router
   ) {
     this.createForm = this.fb.group({
       name: ['', Validators.required],

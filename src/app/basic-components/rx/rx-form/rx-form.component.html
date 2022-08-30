@@ -5,11 +5,46 @@
   </div>
   <div>
     <span>OD: </span>
-    <app-basic-rx-form formControlName="odBasicRx"></app-basic-rx-form>
+    <div>
+      <app-basic-rx-form formControlName="odBasicRx"></app-basic-rx-form>
+      <button
+        mat-raised-button
+        color="basic"
+        type="button"
+        *ngIf="!showPrism"
+        (click)="onshowPrismClick()"
+      >
+        Show Prism
+      </button>
+    </div>
+    <div *ngIf="showPrism">
+      <span *ngFor="let type of prismType; let i = index">
+        <app-basic-prism-form
+          formControlName="od{{
+            type.charAt(0).toUpperCase() + type.slice(1)
+          }}Prism"
+          [prismType]="type"
+        >
+        </app-basic-prism-form>
+      </span>
+    </div>
   </div>
   <div>
     <span>OS: </span>
-    <app-basic-rx-form formControlName="osBasicRx"></app-basic-rx-form>
+    <div>
+      <app-basic-rx-form formControlName="osBasicRx"></app-basic-rx-form>
+    </div>
+    <div *ngIf="showPrism">
+      <span *ngFor="let type of prismType; let i = index">
+        <app-basic-prism-form
+          formControlName="os{{
+            type.charAt(0).toUpperCase() + type.slice(1)
+          }}Prism"
+          [prismType]="type"
+        >
+        </app-basic-prism-form>
+      </span>
+    </div>
   </div>
 
   <button mat-raised-button color="primary" type="submit">Save</button>

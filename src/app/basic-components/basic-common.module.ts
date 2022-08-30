@@ -19,6 +19,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RxFormComponent } from './rx/rx-form/rx-form.component';
 import { BasicRxFormComponent } from './rx/rx-form/basic-rx-form/basic-rx-form.component';
 import { DatePickerComponent } from './for-forms/date-picker/date-picker.component';
+import { BasicPrismFormComponent } from './rx/rx-form/basic-prism-form/basic-prism-form.component';
 
 @NgModule({
     imports: [
@@ -44,7 +45,8 @@ import { DatePickerComponent } from './for-forms/date-picker/date-picker.compone
         RxComponent,
         RxFormComponent,
         BasicRxFormComponent,
-        DatePickerComponent
+        DatePickerComponent,
+        BasicPrismFormComponent
     ],
     exports: [
         DoctorComponent

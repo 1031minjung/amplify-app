@@ -10,8 +10,16 @@ export class RxFormComponent implements OnInit, AfterViewInit {
   public rxForm: FormGroup = new FormGroup({
     date: new FormControl(''),
     odBasicRx: new FormControl(''),
-    osBasicRx: new FormControl('')
-  })
+    odHorizontalPrism: new FormControl(''),
+    odVerticalPrism: new FormControl(''),
+    osBasicRx: new FormControl(''),
+    osHorizontalPrism: new FormControl(''),
+    osVerticalPrism: new FormControl(''),
+  });
+  showPrism = false;
+  prismType = [
+    'horizontal', 'vertical'
+  ];
   constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
@@ -19,6 +27,10 @@ export class RxFormComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.cd.detectChanges();
+  }
+
+  onshowPrismClick() {
+    this.showPrism = true;
   }
 
   onRxFormSave() {
