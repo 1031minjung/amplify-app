@@ -16,13 +16,15 @@ import { FormControl, FormGroup, NG_VALUE_ACCESSOR, NG_VALIDATORS, AbstractContr
       provide: NG_VALIDATORS,
       useExisting: forwardRef(() => DatePickerComponent),
       multi: true,
-    },
+    }
+    
   ]
 })
 export class DatePickerComponent implements OnInit, ControlValueAccessor {
   public datePickerForm: FormGroup = new FormGroup({
-    date: new FormControl(new Date())
+    date: new FormControl('')
   });
+
   constructor() { }
 
   ngOnInit(): void {

@@ -7,7 +7,6 @@
       formControlName="sph"
       type="text"
       [matAutocomplete]="autoSph"
-      [ngModel]="formattedRxData.sph"
       (change)="onSphCylAddChange('sph', basicRxForm.controls['sph'].value)"
     />
     <mat-autocomplete #autoSph="matAutocomplete">
@@ -39,7 +38,6 @@
       formControlName="cyl"
       type="text"
       [matAutocomplete]="autoCyl"
-      [ngModel]="formattedRxData.cyl"
       (change)="onSphCylAddChange('cyl', basicRxForm.controls['cyl'].value)"
     />
     <mat-autocomplete #autoCyl="matAutocomplete">
@@ -67,7 +65,6 @@
       formControlName="axis"
       type="text"
       [matAutocomplete]="autoAxis"
-      [ngModel]="formattedRxData.axis"
       (change)="onAxisChange(basicRxForm.controls['axis'].value)"
     />
     <mat-autocomplete #autoAxis="matAutocomplete">
@@ -96,7 +93,6 @@
       formControlName="add"
       type="text"
       [matAutocomplete]="autoAdd"
-      [ngModel]="formattedRxData.add"
       (change)="onSphCylAddChange('add', basicRxForm.controls['add'].value)"
     />
     <mat-autocomplete #autoAdd="matAutocomplete">

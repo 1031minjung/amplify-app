@@ -17,7 +17,7 @@ export class RxFormComponent implements OnInit, AfterViewInit {
     osVerticalPrism: new FormControl(''),
   });
   showPrism = false;
-  prismType = [
+  prismTypes = [
     'Horizontal', 'Vertical'
   ];
   eyes = ['OD', 'OS'];
@@ -37,5 +37,6 @@ export class RxFormComponent implements OnInit, AfterViewInit {
   onRxFormSave() {
     console.log('Rx is saved');
     console.log(this.rxForm.getRawValue());
+    console.log(this.rxForm.value);
   }
 }

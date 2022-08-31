@@ -1,3 +1,5 @@
+import { FormGroup } from '@angular/forms'
+
 export function populateRxRange(needSymbol: boolean, order: string, start: number, end: number, step: number): string[] {
     var rxRange = [];
     for (let i = start; (order === 'increment' ? i <= end : i >= end); (order === 'increment' ? i += step : i -= step)) {
@@ -6,4 +8,9 @@ export function populateRxRange(needSymbol: boolean, order: string, start: numbe
             : rxRange.push(("00" + i).slice(-3))
     }
     return rxRange;
+}
+
+export function writeValueWithFormattedData(formName: FormGroup, key: string, formattedValue: any): void {
+    formName.controls[key].setValue(formattedValue, { emitEvent: false });
+    console.log(formName.controls[key].value)
 }

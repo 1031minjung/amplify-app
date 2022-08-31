@@ -1,12 +1,7 @@
 <ng-container [formGroup]="datePickerForm">
   <mat-form-field appearance="fill">
-    <mat-label>Rx is/was on </mat-label>
-    <input
-      matInput
-      [matDatepicker]="picker"
-      formControlName="date"
-      [ngModel]="datePickerForm.controls['date'].value"
-    />
+    <mat-label>Rx is/was on</mat-label>
+    <input matInput required [matDatepicker]="picker" formControlName="date" />
     <mat-hint>MM/DD/YYYY</mat-hint>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>

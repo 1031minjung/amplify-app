@@ -3,7 +3,7 @@ import { FormControl, FormGroup, NG_VALUE_ACCESSOR, NG_VALIDATORS, AbstractContr
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { rxFormatValidator, rxNumberValidator, rxRangeValidator } from '../../../../validators/rx-validator';
-import { populateRxRange } from '../common-rx-form-functions'
+import { populateRxRange, writeValueWithFormattedData } from '../common-rx-form-functions'
 
 @Component({
   selector: 'app-basic-prism-form',
@@ -30,7 +30,6 @@ export class BasicPrismFormComponent implements OnInit, ControlValueAccessor {
   @Input() prismType: any;
   prismTypeTitle!: string;
   prismBases: any;
-  formattedPrismData: any;
   amountRange: string[] = [];
   filteredAmountOptions!: Observable<string[]>;
   constructor() { }
@@ -39,10 +38,6 @@ export class BasicPrismFormComponent implements OnInit, ControlValueAccessor {
     this.prismTypeTitle = this.prismType.charAt(0).toUpperCase() + this.prismType.slice(1);
     this.prismBases = this.prismType === 'horizontal' ? ['IN', 'OUT'] : ['UP', 'DOWN'];
     this.amountRange = populateRxRange(false, 'increment', 0.25, 20, 0.25);
-    this.formattedPrismData = {
-      amount: '',
-      base: ''
-    };
     this.autoCompleteWithOptions();
   };
 
@@ -61,10 +56,10 @@ export class BasicPrismFormComponent implements OnInit, ControlValueAccessor {
   onPrismAmountChange(value: any) {
     if (!isNaN(value)) {
       var formattedRx = (Math.round(value * 100) / 100).toFixed(2);
-      this.formattedPrismData['amount'] = formattedRx;
+      writeValueWithFormattedData(this.basicPrismForm, 'amount', formattedRx)
     }
-    console.log(this.formattedPrismData)
   };
+
 
   public onTouched: () => void = () => { };
 

@@ -3,7 +3,7 @@ import { FormControl, FormGroup, NG_VALUE_ACCESSOR, NG_VALIDATORS, AbstractContr
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { rxFormatValidator, rxNumberValidator, rxRangeValidator } from '../../../../validators/rx-validator';
-import { populateRxRange } from '../common-rx-form-functions'
+import { populateRxRange, writeValueWithFormattedData } from '../common-rx-form-functions'
 
 @Component({
   selector: 'app-basic-rx-form',
@@ -30,7 +30,6 @@ export class BasicRxFormComponent implements OnInit, ControlValueAccessor {
     axis: new FormControl('',),
     add: new FormControl('', [rxFormatValidator(), rxNumberValidator(), rxRangeValidator(0, 20)])
   });
-  formattedRxData: any;
   sphRxRange: string[] = [];
   cylRxRange: string[] = [];
   axisRange: string[] = [];
@@ -48,12 +47,6 @@ export class BasicRxFormComponent implements OnInit, ControlValueAccessor {
     this.cylRxRange = populateRxRange(true, 'decrement', -0.25, -20, 0.25);
     this.axisRange = populateRxRange(false, 'increment', 1, 180, 1);
     this.addRxRange = populateRxRange(true, 'increment', 0.25, 20, 0.25);
-    this.formattedRxData = {
-      sph: '',
-      cyl: '',
-      axis: '',
-      add: ''
-    };
     this.autoCompleteWithOptions();
   }
 
@@ -83,7 +76,6 @@ export class BasicRxFormComponent implements OnInit, ControlValueAccessor {
 
   onSphCylAddChange(key: string, value: any) {
     if (!isNaN(value)) {
-      console.log((Math.round(value * 100) / 100).toFixed(2))
       var formattedRx = (Math.round(value * 100) / 100).toFixed(2);
       Math.abs(value) > 0 && Array.from(value)[0] !== '-' ? formattedRx = "+" + formattedRx : null;
       if (key === 'cyl') {
@@ -92,16 +84,18 @@ export class BasicRxFormComponent implements OnInit, ControlValueAccessor {
       }
       // Math.abs(value) === 0 && key === 'sph' ? formattedRx = 'PL' : null; // need to figure out validator then implement them
       // Math.abs(value) === 0 && key === 'cyl' ? formattedRx = 'sph' : null;
-      this.formattedRxData[key] = formattedRx;
+      if (key === 'add') {
+        console.log(key, formattedRx)
+      }
+      writeValueWithFormattedData(this.basicRxForm, key, formattedRx);
     }
   }
 
   onAxisChange(value: any) {
-    console.log("onAxisChange()", value)
     if (!isNaN(value) && value >= 0 && value <= 180) {
       var formattedAxis = ("000" + value).slice(-3);
       formattedAxis === "000" ? formattedAxis = '180' : null;
-      this.formattedRxData['axis'] = formattedAxis;
+      writeValueWithFormattedData(this.basicRxForm, 'axis', formattedAxis);
     }
   }
 

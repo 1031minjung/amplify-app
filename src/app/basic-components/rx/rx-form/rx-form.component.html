@@ -5,9 +5,11 @@
   </div>
   <div *ngFor="let eye of eyes; let i = index">
     <div>
-      <span>{{eye.toUpperCase()}}: </span>
+      <span>{{ eye.toUpperCase() }}: </span>
       <div>
-        <app-basic-rx-form formControlName="{{eye.toLowerCase()}}BasicRx"></app-basic-rx-form>
+        <app-basic-rx-form
+          formControlName="{{ eye.toLowerCase() }}BasicRx"
+        ></app-basic-rx-form>
         <button
           mat-raised-button
           color="basic"
@@ -19,9 +21,9 @@
         </button>
       </div>
       <div *ngIf="showPrism">
-        <span *ngFor="let type of prismType; let i = index">
+        <span *ngFor="let type of prismTypes">
           <app-basic-prism-form
-            formControlName="{{eye.toLowerCase()}}{{type}}Prism"
+            formControlName="{{ eye.toLowerCase() }}{{ type }}Prism"
             [prismType]="type.toLowerCase()"
           >
           </app-basic-prism-form>

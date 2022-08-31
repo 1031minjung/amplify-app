@@ -7,7 +7,6 @@
       formControlName="amount"
       type="text"
       [matAutocomplete]="autoAmount"
-      [ngModel]="formattedPrismData.amount"
       (change)="onPrismAmountChange(basicPrismForm.controls['amount'].value)"
     />
     <mat-autocomplete #autoAmount="matAutocomplete">
