@@ -16,7 +16,7 @@ export class AddressComponent implements OnInit {
     postalCode: new FormControl('')
   });
   selectedAddress: any;
-  
+
   constructor() {}
   
   ngOnInit(): void {
@@ -38,9 +38,5 @@ export class AddressComponent implements OnInit {
       postalCode: address.address_components[7].short_name
     };
     console.log(this.selectedAddress)
-  }
-
-  public onAddressSave() {
-    console.log("onAddressSave")
   }
 }

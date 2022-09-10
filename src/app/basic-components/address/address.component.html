@@ -1,4 +1,4 @@
-<form [formGroup]="addressForm" (ngSubmit)="onAddressSave()">
+<ng-container [formGroup]="addressForm">
   <div class="address-row">
     <mat-form-field appearance="fill" class="street-address">
       <mat-label>Street Address</mat-label>
@@ -29,5 +29,4 @@
     </mat-form-field>
   </div>
   
-  <button mat-raised-button color="primary" type="submit">Save</button>
-</form>
+</ng-container>
