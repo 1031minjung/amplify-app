@@ -1,51 +1,33 @@
-<div class="container">
-  <h2>Google Places Autocomplete</h2>
-  <input ngx-google-places-autocomplete (onAddressChange)="AddressChange($event)"/>
-  {{ formattedAddress }} <br>
-  <div *ngIf=newAddress>
-    {{ newAddress.address_components[0].long_name }}<br>
-    {{ newAddress.address_components[1].short_name }}<br>
-    {{ newAddress.address_components[2].long_name }}<br>
-    {{ newAddress.address_components[3].long_name }}<br>
-    {{ newAddress.address_components[5].short_name }}<br>
-    {{ newAddress.address_components[7].short_name }}<br>
-    {{ newAddress.address_components[6].short_name }}
+<form [formGroup]="addressForm" (ngSubmit)="onAddressSave()">
+  <div class="address-row">
+    <mat-form-field appearance="fill" class="street-address">
+      <mat-label>Street Address</mat-label>
+      <input matInput id="streetAddress"  formControlName="streetAddress" type="text" ngx-google-places-autocomplete
+        (onAddressChange)="AddressChange($event)" value="{{selectedAddress.streetAddress}}" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="address-component">
+      <mat-label>Unit Number</mat-label>
+      <input matInput id="unitNumber" formControlName="unitNumber" type="text" />
+    </mat-form-field>
+  </div>
+  <div class="address-row">
+    <mat-form-field appearance="fill" class="address-component">
+      <mat-label>City</mat-label>
+      <input matInput id="city" formControlName="city" type="text" value="{{selectedAddress.city}}" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="address-component">
+      <mat-label>Province</mat-label>
+      <input matInput id="province" formControlName="province" type="text" value="{{selectedAddress.province}}" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="address-component">
+      <mat-label>Postal Code</mat-label>
+      <input matInput id="postalCode" formControlName="postalCode" type="text" value="{{selectedAddress.postalCode}}" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="address-component">
+      <mat-label>Country</mat-label>
+      <input matInput id="country" formControlName="country" type="text" value="{{selectedAddress.country}}" />
+    </mat-form-field>
   </div>
   
-  <form id="address-form" action="" method="get" autocomplete="off">
-    <h2>Sample address form for North America</h2>
-    <p class="note"><em>* = required field</em></p>
-    <label class="full-field">
-      <!-- Avoid the word "address" in id, name, or label text to avoid browser autofill from conflicting with Place Autocomplete. Star or comment bug https://crbug.com/587466 to request Chromium to honor autocomplete="off" attribute. -->
-      <span class="form-label">Deliver to*</span>
-      <input  autocomplete="off" />
-    </label>
-    <label class="full-field">
-      <span class="form-label">Apartment, unit, suite, or floor #</span>
-      <input id="address2" name="address2" />
-    </label>
-    <label class="full-field">
-      <span class="form-label">City*</span>
-      <input id="locality" name="locality" required />
-    </label>
-    <label class="slim-field-left">
-      <span class="form-label">State/Province*</span>
-      <input id="state" name="state" required />
-    </label>
-    <label class="slim-field-right" for="postal_code">
-      <span class="form-label">Postal code*</span>
-      <input id="postcode" name="postcode" required />
-    </label>
-    <label class="full-field">
-      <span class="form-label">Country/Region*</span>
-      <input id="country" name="country" required />
-    </label>
-    <button type="button" class="my-button">Save address</button>
-
-    <!-- Reset button provided for development testing convenience.
-Not recommended for user-facing forms due to risk of mis-click when aiming for Submit button. -->
-    <input type="reset" value="Clear form" />
-  </form>
-
-
-</div>
+  <button mat-raised-button color="primary" type="submit">Save</button>
+</form>
