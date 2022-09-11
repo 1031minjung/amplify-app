@@ -6,7 +6,7 @@ import { PatientComponent } from './patient/patient.component';
 import { InventoryComponent } from './inventory/inventory.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { HomeComponent } from './home/home.component';
-import { AddressComponent } from './address/address.component'
+import { AddressComponent } from './for-forms/address/address.component'
 import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 import { MatSliderModule } from '@angular/material/slider';
 import { RxComponent } from './rx/rx.component';
@@ -20,6 +20,8 @@ import { RxFormComponent } from './rx/rx-form/rx-form.component';
 import { BasicRxFormComponent } from './rx/rx-form/basic-rx-form/basic-rx-form.component';
 import { DatePickerComponent } from './for-forms/date-picker/date-picker.component';
 import { BasicPrismFormComponent } from './rx/rx-form/basic-prism-form/basic-prism-form.component';
+import { PatientFormComponent } from './patient/patient-form/patient-form.component';
+import { NameComponent } from './for-forms/name/name.component';
 
 @NgModule({
     imports: [
@@ -46,7 +48,9 @@ import { BasicPrismFormComponent } from './rx/rx-form/basic-prism-form/basic-pri
         RxFormComponent,
         BasicRxFormComponent,
         DatePickerComponent,
-        BasicPrismFormComponent
+        BasicPrismFormComponent,
+        PatientFormComponent,
+        NameComponent
     ],
     exports: [
         DoctorComponent

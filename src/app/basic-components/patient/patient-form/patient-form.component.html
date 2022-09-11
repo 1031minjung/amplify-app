@@ -1,0 +1,5 @@
+<form [formGroup]="patientForm" (ngSubmit)="onPatientFormSave()">
+    <app-name formControlName="name"></app-name>
+    <app-address formControlName="address"></app-address>
+    <button mat-raised-button color="primary" type="submit">Save</button>
+</form>

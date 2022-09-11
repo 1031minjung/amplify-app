@@ -3,7 +3,7 @@
     <mat-form-field appearance="fill" class="street-address">
       <mat-label>Street Address</mat-label>
       <input matInput id="streetAddress"  formControlName="streetAddress" type="text" ngx-google-places-autocomplete
-        (onAddressChange)="AddressChange($event)" value="{{selectedAddress.streetAddress}}" />
+        (onAddressChange)="AddressChange($event)"/>
     </mat-form-field>
     <mat-form-field appearance="fill" class="address-component">
       <mat-label>Unit Number</mat-label>
@@ -13,20 +13,19 @@
   <div class="address-row">
     <mat-form-field appearance="fill" class="address-component">
       <mat-label>City</mat-label>
-      <input matInput id="city" formControlName="city" type="text" value="{{selectedAddress.city}}" />
+      <input matInput id="city" formControlName="city" type="text"/>
     </mat-form-field>
     <mat-form-field appearance="fill" class="address-component">
       <mat-label>Province</mat-label>
-      <input matInput id="province" formControlName="province" type="text" value="{{selectedAddress.province}}" />
+      <input matInput id="province" formControlName="province" type="text"/>
     </mat-form-field>
     <mat-form-field appearance="fill" class="address-component">
       <mat-label>Postal Code</mat-label>
-      <input matInput id="postalCode" formControlName="postalCode" type="text" value="{{selectedAddress.postalCode}}" />
+      <input matInput id="postalCode" formControlName="postalCode" type="text"/>
     </mat-form-field>
     <mat-form-field appearance="fill" class="address-component">
       <mat-label>Country</mat-label>
-      <input matInput id="country" formControlName="country" type="text" value="{{selectedAddress.country}}" />
+      <input matInput id="country" formControlName="country" type="text" />
     </mat-form-field>
   </div>
-  
 </ng-container>

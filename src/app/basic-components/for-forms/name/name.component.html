@@ -1,0 +1,26 @@
+<ng-container [formGroup]="nameForm">
+    <div class="name-row">
+        <mat-form-field appearance="fill" class="name-component">
+            <mat-label>First Name</mat-label>
+            <input matInput id="firstName" formControlName="firstName" type="text" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="name-component">
+            <mat-label>Middle Name</mat-label>
+            <input matInput id="middleName" formControlName="middleName" type="text" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="name-component">
+            <mat-label>Last Name</mat-label>
+            <input matInput id="lastName" formControlName="lastName" type="text" />
+        </mat-form-field>
+    </div>
+    <div class="name-row">
+        <mat-form-field appearance="fill" class="name-component">
+            <mat-label>Nick Name</mat-label>
+            <input matInput id="nickName" formControlName="nickName" type="text" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="name-component">
+            <mat-label>Preferred Name</mat-label>
+            <input matInput id="preferredName" formControlName="preferredName" type="text" />
+        </mat-form-field>
+    </div>
+</ng-container>
