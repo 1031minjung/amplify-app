@@ -1,7 +1,12 @@
 <form [formGroup]="rxForm" (ngSubmit)="onRxFormSave()">
   <div>
     Date:
-    <app-date-picker formControlName="date"></app-date-picker>
+    <mat-form-field appearance="fill">
+      <mat-label>Year base date switcher</mat-label>
+      <input matInput [matDatepicker]="matDatepicker" formControlName="date" />
+      <mat-datepicker-toggle matSuffix [for]="matDatepicker"></mat-datepicker-toggle>
+      <mat-datepicker #matDatepicker startView="year"></mat-datepicker>
+  </mat-form-field>
   </div>
   <div *ngFor="let eye of eyes; let i = index">
     <div>

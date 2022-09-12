@@ -18,7 +18,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RxFormComponent } from './rx/rx-form/rx-form.component';
 import { BasicRxFormComponent } from './rx/rx-form/basic-rx-form/basic-rx-form.component';
-import { DatePickerComponent } from './for-forms/date-picker/date-picker.component';
 import { BasicPrismFormComponent } from './rx/rx-form/basic-prism-form/basic-prism-form.component';
 import { PatientFormComponent } from './patient/patient-form/patient-form.component';
 import { NameComponent } from './for-forms/name/name.component';
@@ -47,7 +46,6 @@ import { NameComponent } from './for-forms/name/name.component';
         RxComponent,
         RxFormComponent,
         BasicRxFormComponent,
-        DatePickerComponent,
         BasicPrismFormComponent,
         PatientFormComponent,
         NameComponent

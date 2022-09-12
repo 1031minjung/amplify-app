@@ -8,7 +8,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class RxFormComponent implements OnInit, AfterViewInit {
   public rxForm: FormGroup = new FormGroup({
-    date: new FormControl(''),
+    date: new FormControl(new Date()),
     odBasicRx: new FormControl(''),
     odHorizontalPrism: new FormControl(''),
     odVerticalPrism: new FormControl(''),
